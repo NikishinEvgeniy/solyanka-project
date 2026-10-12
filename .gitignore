@@ -7,9 +7,6 @@ HELP.md
 /.env
 /frontend/node_modules
 /frontend/dist
-/docker/
-!/docker/Dockerfile.backend
-!/docker/Dockerfile.frontend
 
 ### STS ###
 .apt_generated
