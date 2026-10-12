@@ -7,5 +7,5 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.yaml
-    liquibase-schema: service
-    default-schema: service
+    liquibase-schema: solyanka
+    default-schema: solyanka
