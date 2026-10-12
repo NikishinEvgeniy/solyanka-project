@@ -1,3 +1,6 @@
 spring:
   application:
     name: tp_ivt_team4_2026
+  config:
+    import:
+      - classpath:library/security-configuration.yml
