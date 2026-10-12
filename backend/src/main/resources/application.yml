@@ -8,3 +8,8 @@ spring:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.yaml
     liquibase-schema: service
+    default-schema: solyanka
+preliquibase:
+  enabled: true
+  dbPlatformCode: postgresql
+  sqlScriptReferences: classpath:/preliquibase/000-create-service-schema.sql

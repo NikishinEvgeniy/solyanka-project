@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-create-recipes-table
+      id: ivt_4_26-30
       author: Leonid
       changes:
         - createTable:
@@ -27,7 +27,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addUniqueConstraint:
-            schemaName: solyanka
             tableName: recipes
+            schemaName: solyanka
             columnNames: name
             constraintName: uq_recipes_name

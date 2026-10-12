@@ -1,17 +1,21 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
-    env_file:
-      - .env
     command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 9090
     ports:
       - 9090:9090
     volumes:
       - keycloak_data:/opt/keycloak/data
   postgres:
     image: postgres:18
-    env_file:
-      - .env
+    environment:
+      POSTGRES_DB: solyanka
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     ports:
       - 5432:5432
     volumes:
@@ -20,18 +24,17 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.backend 
-    env_file:
-      - .env
     ports:
       - 8080:8080
+    environment:
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
     depends_on:
       - postgres
   site:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.frontend
-    env_file:
-      - .env
     ports:
       - 3000:80
 
