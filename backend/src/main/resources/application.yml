@@ -3,13 +3,9 @@ spring:
     name: tp_ivt_team4_2026
   datasource:
     url: jdbc:postgresql://postgres:5432/solyanka
-    username: admin
-    password: admin
     driver-class-name: org.postgresql.Driver
   liquibase:
     enabled: true
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-
-logging:
-  level:
-    liquibase: DEBUG
+    change-log: classpath:/db/changelog/changelog-master.yaml
+    liquibase-schema: service
+    default-schema: service
