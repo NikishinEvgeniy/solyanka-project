@@ -6,6 +6,7 @@ HELP.md
 
 /frontend/node_modules
 /frontend/dist
+.env
 
 ### STS ###
 .apt_generated
