@@ -4,6 +4,7 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/.env
 /frontend/node_modules
 /frontend/dist
 
