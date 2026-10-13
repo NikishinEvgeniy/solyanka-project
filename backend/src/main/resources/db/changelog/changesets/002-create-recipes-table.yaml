@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: ivt_4_26-30
+      author: Leonid
+      changes:
+        - createTable:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_recipes
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image_url
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: recipes
+            schemaName: solyanka
+            columnNames: name
+            constraintName: uq_recipes_name
