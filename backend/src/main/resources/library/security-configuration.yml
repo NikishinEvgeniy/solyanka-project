@@ -3,4 +3,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9090/realms/solyanka
+          jwk-set-uri: http://keycloak:9090/realms/solyanka/protocol/openid-connect/certs
