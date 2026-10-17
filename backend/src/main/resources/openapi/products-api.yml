@@ -1,0 +1,166 @@
+openapi: 3.0.3
+
+info:
+  title: Solyanka Products API
+  description: CRUD для сущности products (база solyanka)
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: products
+    description: Управление товарами
+
+paths:
+  /api/v1/products:
+    get:
+      tags: [products]
+      operationId: getAllProducts
+      summary: Получить все продукты
+      responses:
+        '200':
+          description: Список продуктов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDto'
+    post:
+      tags: [products]
+      operationId: createProduct
+      summary: Создать продукт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '201':
+          description: Продукт создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '400':
+          description: Некорректный запрос
+
+  /api/v1/products/{id}:
+    get:
+      tags: [products]
+      operationId: getProductById
+      summary: Получить продукт по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Продукт найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '404':
+          description: Продукт не найден
+    put:
+      tags: [products]
+      operationId: updateProduct
+      summary: Обновить продукт
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductRequest'
+      responses:
+        '200':
+          description: Продукт обновлён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+        '404':
+          description: Продукт не найден
+    delete:
+      tags: [products]
+      operationId: deleteProduct
+      summary: Удалить продукт
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Продукт удалён
+        '404':
+          description: Продукт не найден
+
+components:
+  schemas:
+    ProductDto:
+      type: object
+      required: [id, name, price]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Solyanka Classic"
+        description:
+          type: string
+          example: "Острый суп"
+        price:
+          type: number
+          format: double
+          example: 199.99
+        stockQuantity:
+          type: integer
+          example: 50
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateProductRequest:
+      type: object
+      required: [name, price]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        stockQuantity:
+          type: integer
+
+    UpdateProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        stockQuantity:
+          type: integer
