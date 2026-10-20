@@ -16,6 +16,9 @@
     <properties>
         <java.version>17</java.version>
         <pre-liquibase.version>2.0.0</pre-liquibase.version>
+        <openapitools.version>7.10.0</openapitools.version>
+        <swagger.version>2.2.22</swagger.version>
+        <springdoc.version>3.0.0</springdoc.version>
     </properties>
     <dependencies>
         <dependency>
@@ -58,6 +61,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -99,6 +112,36 @@
                                     <version>${lombok.version}</version>
                                 </path>
                             </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapitools.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-server-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/products-api.yml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <library>spring-boot</library>
+                            <apiPackage>com.solyanka.products.api</apiPackage>
+                            <modelPackage>com.solyanka.products.model</modelPackage>
+                            <invokerPackage>com.solyanka.products.invoker</invokerPackage>
+                            <configOptions>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useJakartaEe>true</useJakartaEe>
+                                <useBeanValidation>true</useBeanValidation>
+                                <openApiNullable>false</openApiNullable>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
+                                <annotationLibrary>swagger2</annotationLibrary>
+                            </configOptions>
                         </configuration>
                     </execution>
                 </executions>
