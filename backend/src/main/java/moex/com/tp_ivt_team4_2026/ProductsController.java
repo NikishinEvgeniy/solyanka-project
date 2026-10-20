@@ -25,6 +25,7 @@ public class ProductsController implements ProductsApi {
         ProductDto dummyProduct = new ProductDto(2L, request.getTitle(), OffsetDateTime.now());
         dummyProduct.setDescription(request.getDescription());
         dummyProduct.setUnit(request.getUnit());
+        dummyProduct.setImageUrl(request.getImageUrl());
         return ResponseEntity.status(201).body(dummyProduct);
     }
 
