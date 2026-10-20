@@ -10,17 +10,17 @@ servers:
 
 tags:
   - name: products
-    description: Управление товарами
+    description: Управление ингредиентами
 
 paths:
   /api/v1/products:
     get:
       tags: [products]
       operationId: getAllProducts
-      summary: Получить все продукты
+      summary: Получить все ингредиенты
       responses:
         '200':
-          description: Список продуктов
+          description: Список ингредиентов
           content:
             application/json:
               schema:
@@ -30,7 +30,7 @@ paths:
     post:
       tags: [products]
       operationId: createProduct
-      summary: Создать продукт
+      summary: Создать ингредиент
       requestBody:
         required: true
         content:
@@ -39,7 +39,7 @@ paths:
               $ref: '#/components/schemas/CreateProductRequest'
       responses:
         '201':
-          description: Продукт создан
+          description: Ингредиент создан
           content:
             application/json:
               schema:
@@ -51,7 +51,7 @@ paths:
     get:
       tags: [products]
       operationId: getProductById
-      summary: Получить продукт по ID
+      summary: Получить ингредиент по ID
       parameters:
         - name: id
           in: path
@@ -61,17 +61,17 @@ paths:
             format: int64
       responses:
         '200':
-          description: Продукт найден
+          description: Ингредиент найден
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDto'
         '404':
-          description: Продукт не найден
+          description: Ингредиент не найден
     put:
       tags: [products]
       operationId: updateProduct
-      summary: Обновить продукт
+      summary: Обновить ингредиент
       parameters:
         - name: id
           in: path
@@ -87,17 +87,17 @@ paths:
               $ref: '#/components/schemas/UpdateProductRequest'
       responses:
         '200':
-          description: Продукт обновлён
+          description: Ингредиент обновлён
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductDto'
         '404':
-          description: Продукт не найден
+          description: Ингредиент не найден
     delete:
       tags: [products]
       operationId: deleteProduct
-      summary: Удалить продукт
+      summary: Удалить ингредиент
       parameters:
         - name: id
           in: path
@@ -107,60 +107,71 @@ paths:
             format: int64
       responses:
         '204':
-          description: Продукт удалён
+          description: Ингредиент удалён
         '404':
-          description: Продукт не найден
+          description: Ингредиент не найден
 
 components:
   schemas:
     ProductDto:
       type: object
-      required: [id, name, price]
+      required: [id, title, created_at]
       properties:
         id:
           type: integer
           format: int64
           example: 1
-        name:
+        title:
           type: string
-          example: "Solyanka Classic"
+          maxLength: 50
+          example: "Банан"
         description:
           type: string
-          example: "Острый суп"
-        price:
-          type: number
-          format: double
-          example: 199.99
-        stockQuantity:
-          type: integer
-          example: 50
-        createdAt:
+          example: "Желтый банан, вкусный"
+        image_url:
+          type: string
+          maxLength: 200
+          example: "https://example.com/images/banana.jpg"
+        created_at:
           type: string
           format: date-time
+          example: "2026-10-19T12:00:00Z"
+        unit:
+          type: string
+          maxLength: 10
+          example: "гр."
 
     CreateProductRequest:
       type: object
-      required: [name, price]
+      required: [title]
       properties:
-        name:
+        title:
           type: string
+          maxLength: 50
+          example: "Зелёный виноград"
         description:
           type: string
-        price:
-          type: number
-          format: double
-        stockQuantity:
-          type: integer
+          example: "Зелёный"
+        image_url:
+          type: string
+          maxLength: 200
+          example: "https://example.com/images/green_grape.jpg"
+        unit:
+          type: string
+          maxLength: 10
+          example: "гр."
 
     UpdateProductRequest:
       type: object
       properties:
-        name:
+        title:
           type: string
+          maxLength: 50
         description:
           type: string
-        price:
-          type: number
-          format: double
-        stockQuantity:
-          type: integer
+        image_url:
+          type: string
+          maxLength: 200
+        unit:
+          type: string
+          maxLength: 10
