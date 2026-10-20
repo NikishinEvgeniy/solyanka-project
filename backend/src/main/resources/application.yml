@@ -16,7 +16,3 @@ preliquibase:
   enabled: true
   dbPlatformCode: postgresql
   sqlScriptReferences: classpath:/preliquibase/000-create-service-schema.sql
-
-springdoc:
-  swagger-ui:
-    enabled: false
