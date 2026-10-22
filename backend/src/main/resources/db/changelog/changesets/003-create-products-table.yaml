@@ -1,24 +1,26 @@
-- changeSet:
-    id: 003-create-products-table
-    author: Leonid
-    changes:
-      - createTable:
-          schemaName: solyanka
-          tableName: products
-          columns:
-            - column:
-                name: id
-                type: BIGSERIAL
-                constraints:
-                  primaryKey: true
-            - column:
-                name: title
-                type: VARCHAR(50)
-                constraints:
-                  nullable: false
-                  unique: true
-            - column:
-                name: image_url
-                type: VARCHAR(200)
-                constraints:
-                  nullable: true
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-products-table
+      author: Leonid
+      changes:
+        - createTable:
+            schemaName: solyanka
+            tableName: products
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: image_url
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: true
