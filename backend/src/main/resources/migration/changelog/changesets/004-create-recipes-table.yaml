@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-create-recipes-table
+      id: 004-create-recipes-table
       author: Leonid
       changes:
         - createTable:
