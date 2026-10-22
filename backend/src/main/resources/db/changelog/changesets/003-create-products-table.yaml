@@ -3,6 +3,7 @@
     author: Leonid
     changes:
       - createTable:
+          schemaName: solyanka
           tableName: products
           columns:
             - column:
