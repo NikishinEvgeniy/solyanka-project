@@ -4,8 +4,8 @@ databaseChangeLog:
       author: Leonid
       changes:
         - createTable:
-            schemaName: solyanka
             tableName: products
+            schemaName: solyanka
             ifNotExists: true
             columns:
               - column:
