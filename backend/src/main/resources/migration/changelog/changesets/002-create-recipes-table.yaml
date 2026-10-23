@@ -4,8 +4,8 @@ databaseChangeLog:
       author: Leonid
       changes:
         - createTable:
-            schemaName: solyanka
             tableName: recipes
+            schemaName: solyanka
             ifNotExists: true
             columns:
               - column:
@@ -13,22 +13,33 @@ databaseChangeLog:
                   type: BIGSERIAL
                   constraints:
                     primaryKey: true
-                    primaryKeyName: pk_recipes
               - column:
-                  name: name
-                  type: VARCHAR(50)
+                  name: title
+                  type: VARCHAR(100)
                   constraints:
                     nullable: false
-              - column:
-                  name: image_url
-                  type: VARCHAR(255)
               - column:
                   name: description
                   type: TEXT
                   constraints:
                     nullable: false
-        - addUniqueConstraint:
-            tableName: recipes
-            schemaName: solyanka
-            columnNames: name
-            constraintName: uq_recipes_name
+              - column:
+                  name: image_url
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: author_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: false
