@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: migration/changelog/changesets/001-create-solyanka-schema.yaml
+  - include:
+      file: migration/changelog/changesets/002-create-recipes-table.yaml
+  - include:
+      file: migration/changelog/changesets/003-create-products-table.yaml

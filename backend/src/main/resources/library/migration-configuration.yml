@@ -1,0 +1,10 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:migration/changelog/changelog-master.yaml
+    liquibase-schema: service
+    default-schema: solyanka
+preliquibase:
+  enabled: true
+  dbPlatformCode: postgresql
+  sqlScriptReferences: classpath:migration/preliquibase/000-create-service-schema.sql
