@@ -1,4 +1,4 @@
-package moex.com.tp_ivt_team4_2026.feature.model;
+package moex.com.tp_ivt_team4_2026.product.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,12 +11,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "products", schema = "solyanka")
 @Data
+@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table(name = "products", schema = "solyanka")
 public class Product {
 
     @Id

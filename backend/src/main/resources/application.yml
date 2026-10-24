@@ -1,18 +1,8 @@
 spring:
   application:
     name: tp_ivt_team4_2026
-  datasource:
-    url: jdbc:postgresql://postgres:5432/solyanka
-    driver-class-name: org.postgresql.Driver
-  liquibase:
-    enabled: true
-    change-log: classpath:/db/changelog/changelog-master.yaml
-    liquibase-schema: service
-    default-schema: solyanka
   config:
     import:
       - classpath:library/security-configuration.yml
-preliquibase:
-  enabled: true
-  dbPlatformCode: postgresql
-  sqlScriptReferences: classpath:/preliquibase/000-create-service-schema.sql
+      - classpath:library/migration-configuration.yml
+      - classpath:library/datasource-configuration.yml
