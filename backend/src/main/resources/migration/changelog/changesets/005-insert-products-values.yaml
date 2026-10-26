@@ -1,0 +1,255 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-insert-products-values
+      author: Leonid
+      changes:
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Яблоко" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Виноград" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Говядина" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Лапша" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Банан" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Апельсин" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Груша" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Персик" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Киви" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Манго" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Арбуз" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Дыня" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Клубника" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Черешня" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Лимон" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Свинина" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Курица" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Индейка" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Баранина" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Рыба лосось" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Рыба треска" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Креветки" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Рис" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Гречка" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Макароны" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Мука пшеничная" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Сахар" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Соль" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Молоко" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Кефир" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Сыр" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Творог" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Сметана" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Масло сливочное" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Масло растительное" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Яйца куриные" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Хлеб пшеничный" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Хлеб ржаной" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Картофель" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Морковь" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Лук репчатый" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Свекла" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Помидор" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Огурец" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Капуста белокочанная" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Перец болгарский" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Чеснок" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Грибы шампиньоны" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Мёд" }
+        - insert:
+            schemaName: solyanka
+            tableName: products
+            columns:
+              - column: { name: title, value: "Чай чёрный" }
