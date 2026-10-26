@@ -7,3 +7,5 @@ databaseChangeLog:
       file: migration/changelog/changesets/003-create-products-table.yaml
   - include:
       file: migration/changelog/changesets/004-create-ingredients-table.yaml
+  - include:
+      file: migration/changelog/changesets/005-insert-products-values.yaml
