@@ -5,3 +5,5 @@ databaseChangeLog:
       file: migration/changelog/changesets/002-create-recipes-table.yaml
   - include:
       file: migration/changelog/changesets/003-create-products-table.yaml
+  - include:
+      file: migration/changelog/changesets/004-create-ingredients-table.yaml
