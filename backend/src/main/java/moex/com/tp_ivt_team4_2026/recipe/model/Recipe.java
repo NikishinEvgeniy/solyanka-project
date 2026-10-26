@@ -1,4 +1,4 @@
-package moex.com.tp_ivt_team4_2026.feature.model;
+package moex.com.tp_ivt_team4_2026.recipe.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,7 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,11 +18,12 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "recipes", schema = "solyanka")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table(name = "recipes", schema = "solyanka")
 public class Recipe {
 
     @Id
