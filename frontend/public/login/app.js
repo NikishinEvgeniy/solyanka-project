@@ -1,11 +1,3 @@
-/* ============================================================
- *  Standard Flow (Authorization Code) + PKCE через keycloak-js
- *  П.1: редирект на страницу входа Keycloak (тема solyanka)
- *  П.2: Keycloak возвращает code -> keycloak-js меняет на JWT
- *  П.3: токен в заголовке Authorization: Bearer -> Spring
- *  PKCE (S256) включён автоматически — это и есть «user credentials + PKCE»
- * ============================================================ */
-
 const statusEl = document.getElementById("status");
 const loginBtn = document.getElementById("login-btn");
 
@@ -17,7 +9,7 @@ const keycloak = new Keycloak({
 
 keycloak
     .init({
-        onLoad: "check-sso",        // при заходе проверить активную сессию
+        onLoad: "login-required",        // при заходе проверить активную сессию
         pkceMethod: "S256",         // <-- PKCE
         redirectUri: window.location.href,
     })
