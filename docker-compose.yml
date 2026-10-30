@@ -12,7 +12,7 @@ services:
     volumes:
       - keycloak_data:/opt/keycloak/data
       - ./docker/solyanka-realm.json:/opt/keycloak/data/import/realm.json:ro
-      - ./docker/keycloak-theme/solyanka:/opt/keycloak/themes/solyanka
+      - ./frontend/src/library/keycloak/solyanka:/opt/keycloak/themes/solyanka
   postgres:
     image: postgres:18
     environment:
