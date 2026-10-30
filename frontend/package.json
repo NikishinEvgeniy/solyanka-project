@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-keycloak/web": "^3.4.0",
+    "keycloak-js": "^25.0.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
