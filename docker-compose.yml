@@ -23,6 +23,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d solyanka" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
   server:
     build:
       context: .
@@ -33,7 +38,8 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
   site:
     build:
       context: .
