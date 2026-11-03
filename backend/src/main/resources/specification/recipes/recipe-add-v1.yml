@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Спецификация работы с рецептами
+  version: 1.0.0
+paths:
+  /api/v1/recipes:
+    put:
+      tags: [recipes]
+      operationId: addRecipe
+      summary: Добавление рецепта
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddRecipeRequestV1'
+      responses:
+        '201':
+          description: Успешное добавление рецепта
+        '400':
+          $ref: '../responses/bad-request-v1.yml'
+        '500':
+          $ref: '../responses/internal-server-error-v1.yml'
+components:
+  schemas:
+    AddRecipeRequestV1:
+      type: object
+      required:
+        - title
+        - description
+        - author_id
+        - image
+      properties:
+        title:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        author_id:
+          type: integer
+          format: int64
+        image:
+          type: string
+          format: binary
+          description: Файл изображения
