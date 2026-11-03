@@ -5,7 +5,7 @@ info:
 paths:
   /api/v1/recipes:
     put:
-      tags: [recipes]
+      tags: [recipe-add]
       operationId: addRecipe
       summary: Добавление рецепта
       requestBody:
