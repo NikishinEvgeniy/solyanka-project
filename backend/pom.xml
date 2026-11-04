@@ -148,12 +148,12 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>generate-recipes-by-id</id>
+                        <id>generate-recipe-by-id</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/specification/recipes/recipes-byId-v1.yml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/specification/recipes/recipes-by-id-v1.yml</inputSpec>
                             <generatorName>spring</generatorName>
                             <library>spring-boot</library>
                             <apiPackage>moex.com.tp_ivt_team4_2026.api</apiPackage>
