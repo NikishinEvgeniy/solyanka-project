@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Спецификация получения одного рецепта
+  version: 1.0.0
+paths:
+  /api/v1/recipes/{id}:
+    get:
+      tags: [recipe-by-id]
+      operationId: getRecipeById
+      summary: Получение рецепта по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
+      responses:
+        '200':
+          description: Успешное получение рецепта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeByIdResponseV1'
+        '404':
+          $ref: '../responses/bad-request-v1.yml'
+        '500':
+          $ref: '../responses/internal-server-error-v1.yml'
+
+components:
+  schemas:
+    RecipeByIdResponseV1:
+      type: object
+      required: [id, title, description]
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Идентификатор рецепта
+        title:
+          type: string
+          maxLength: 100
+          description: Название рецепта
+        image_url:
+          type: string
+          maxLength: 200
+          description: Ссылка на изображение
+          nullable: true
+        description:
+          type: string
+          description: Описание рецепта
