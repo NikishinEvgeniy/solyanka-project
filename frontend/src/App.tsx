@@ -1,16 +1,18 @@
 import { useKeycloak } from '@react-keycloak/web'
+import HomePage from './pages/HomePage'
 
 function App() {
-    const { keycloak, initialized } = useKeycloak()
-    if (!initialized) return <div>Получение токена</div>
+  const { keycloak, initialized } = useKeycloak()
+
+  if (!initialized) {
     return (
-        <div>
-            <h1>Солянка</h1>
-            <p>Главная страница (в работе)</p>
-            <p>Имя пользователя: {keycloak.tokenParsed?.preferred_username}</p>
-            <button onClick={() => keycloak.logout()}>Выйти</button>
-        </div>
+      <div className="auth-loader" role="status">
+        Загружаем «Солянку»…
+      </div>
     )
+  }
+
+  return <HomePage onLogout={() => void keycloak.logout()} />
 }
 
 export default App
