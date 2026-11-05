@@ -5,7 +5,7 @@ info:
 paths:
   /api/v1/recipes/{id}:
     get:
-      tags: [recipes-byId]
+      tags: [recipe-by-id]
       operationId: getRecipeById
       summary: Получение рецепта по ID
       parameters:
