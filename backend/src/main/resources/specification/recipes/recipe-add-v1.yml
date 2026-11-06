@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Спецификация работы с рецептами
+  title: Спецификация добавления рецепта
   version: 1.0.0
 paths:
   /api/v1/recipes:
