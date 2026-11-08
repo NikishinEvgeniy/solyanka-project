@@ -6,6 +6,7 @@ services:
     environment:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
+    command: server /data
     volumes:
       - minio_data:/data
   keycloak:
