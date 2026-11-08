@@ -1,4 +1,13 @@
 services:
+  minio:
+    image: rancher/mirrored-minio-minio:RELEASE.2020-07-13T18-09-56Z
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - minio_data:/data
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
     command: start-dev --import-realm
@@ -48,5 +57,6 @@ services:
       - "3000:80"
 
 volumes:
+  minio_data:
   keycloak_data:
   postgres_data:
