@@ -22,16 +22,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/EditRecipeResponseV1'
         '403':
-          $ref: '../responses/bad-request-v1.yml'
+          $ref: '../responses/forbidden-v1.yml'
         '409':
-          $ref: '../responses/bad-request-v1.yml'
+          $ref: '../responses/conflict-v1.yml'
         '500':
           $ref: '../responses/internal-server-error-v1.yml'
 components:
   schemas:
     EditRecipeRequestV1:
       type: object
-      required: [title, description, image]
+      required: [title, description]
       properties:
         title:
           type: string
@@ -41,6 +41,7 @@ components:
         image:
           type: string
           format: binary
+          nullable: true
           description: Файл изображения
     EditRecipeResponseV1:
       type: object
@@ -51,13 +52,13 @@ components:
           format: int64
         title:
           type: string
-          maxLength: 20
+          maxLength: 100
         description:
           type: string
         image_url:
           type: string
+          maxLength: 200
           nullable: true
-          maxLength: 255
         author_id:
           type: integer
           format: int64
