@@ -17,11 +17,7 @@ public class RecipeByIdController implements RecipeByIdApi {
     private final RecipeByIdService recipeByIdService;
     @Override
     public ResponseEntity<RecipeByIdResponseV1> getRecipeById(Long id){
-        try{
-            RecipeDto recipe = recipeByIdService.handle(id);
-            return ResponseEntity.ok(recipeByIdMapper.map(recipe));
-        } catch (RecipeNotFoundException e) {
-            return null;
-        }
+        RecipeDto recipe = recipeByIdService.handle(id);
+        return ResponseEntity.ok(recipeByIdMapper.map(recipe));
     }
 }
