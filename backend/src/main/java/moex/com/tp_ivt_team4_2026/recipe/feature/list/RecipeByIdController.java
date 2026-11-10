@@ -3,7 +3,6 @@ package moex.com.tp_ivt_team4_2026.recipe.feature.list;
 import lombok.RequiredArgsConstructor;
 import moex.com.tp_ivt_team4_2026.api.RecipeByIdApi;
 import moex.com.tp_ivt_team4_2026.model.RecipeByIdResponseV1;
-import moex.com.tp_ivt_team4_2026.recipe.feature.list.exception.RecipeNotFoundException;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper.RecipeByIdMapper;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.service.RecipeByIdService;

@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: test-recipes
+      author: Leonid
+      changes:
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column:
+                  name: title
+                  value: "Борщ"
+              - column:
+                  name: description
+                  value: "Классический украинский суп на свёкле с мясом и сметаной"
+              - column:
+                  name: image_url
+                  value: "https://example.com/images/borsh.jpg"
+              - column:
+                  name: author_id
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: created_at
+                  valueComputed: "NOW()"
+              - column:
+                  name: updated_at
+                  valueComputed: "NOW()"
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column:
+                  name: title
+                  value: "Оливье"
+              - column:
+                  name: description
+                  value: "Праздничный салат с картофелем, морковью, горошком, огурцами и майонезом"
+              - column:
+                  name: image_url
+                  value: "https://example.com/images/olivier.jpg"
+              - column:
+                  name: author_id
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: created_at
+                  valueComputed: "NOW()"
+              - column:
+                  name: updated_at
+                  valueComputed: "NOW()"
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column:
+                  name: title
+                  value: "Блины"
+              - column:
+                  name: description
+                  value: "Тонкие блины на молоке, подаются со сметаной, мёдом или икрой"
+              - column:
+                  name: image_url
+                  value: "https://example.com/images/bliny.jpg"
+              - column:
+                  name: author_id
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: created_at
+                  valueComputed: "NOW()"
+              - column:
+                  name: updated_at
+                  valueComputed: "NOW()"
