@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Спецификация получения рецептов
+  version: 1.0.0
+paths:
+  /api/v1/recipes:
+    get:
+      tags: [recipe-list]
+      operationId: getRecipes
+      summary: Получение списка рецептов
+      responses:
+        '200':
+          description: Успешное получение списка рецептов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeListResponseV1'
+        '500':
+          $ref: '../responses/internal-server-error-v1.yml'
+components:
+  schemas:
+    RecipeListResponseV1:
+      type: object
+      required: [recipes]
+      properties:
+        recipes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeCardResponseV1'
+    RecipeCardResponseV1:
+      type: object
+      required: [id, title]
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        image_url:
+          type: string
