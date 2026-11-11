@@ -1,0 +1,30 @@
+:root {
+  font-family: 'Brygada 1918', Georgia, serif;
+  color: #2f251f;
+  background: #eabe79;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --page-padding: clamp(24px, 4.45vw, 64px);
+  --cream: #f5e8c4;
+  --brown: #493629;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; background: #eabe79; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, a { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { color: inherit; }
+#root { min-height: 100vh; }
+
+:focus-visible { outline: 3px solid #c84b3c; outline-offset: 5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
