@@ -1,8 +1,6 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.exception;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 public class RecipeNotFoundException extends RuntimeException {
