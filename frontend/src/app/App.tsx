@@ -1,5 +1,6 @@
 import { useKeycloak } from '@react-keycloak/web'
-import HomePage from './pages/HomePage'
+import HomePage from '../pages/home/HomePage'
+import RegistrationNotice from '../library/keycloak/RegistrationNotice'
 
 function App() {
   const { keycloak, initialized } = useKeycloak()
@@ -12,7 +13,10 @@ function App() {
     )
   }
 
-  return <HomePage onLogout={() => void keycloak.logout()} />
+  return <>
+    <RegistrationNotice authenticated={Boolean(keycloak.authenticated)} />
+    <HomePage onLogout={() => void keycloak.logout()} />
+  </>
 }
 
 export default App
