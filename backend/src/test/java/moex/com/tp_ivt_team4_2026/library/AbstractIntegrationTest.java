@@ -11,7 +11,6 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 @Testcontainers
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
 public class AbstractIntegrationTest {
     @Container
     @ServiceConnection
