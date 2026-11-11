@@ -1,6 +1,0 @@
-spring:
-  liquibase:
-    change-log: classpath:migration/changelog/changelog-test-master.yml
-    enabled: true
-    liquibase-schema: service
-    default-schema: solyanka

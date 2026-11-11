@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
 import org.springframework.http.MediaType;
+
+@Sql("/mock-recipes.sql")
 @DisplayName("Проверка работоспособности домена [Recipe]")
 class RecipeByIdControllerTest extends AbstractIntegrationTest {
 

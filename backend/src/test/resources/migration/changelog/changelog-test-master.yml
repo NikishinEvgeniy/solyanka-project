@@ -1,6 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: classpath:migration/changelog/changelog-master.yaml
-  - include:
-      file: changesets/test-recipes.yml
-      relativeToChangelogFile: true

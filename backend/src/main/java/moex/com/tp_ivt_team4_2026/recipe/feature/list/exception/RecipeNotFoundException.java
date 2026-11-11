@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
-@ResponseStatus(HttpStatus.NOT_FOUND)
 public class RecipeNotFoundException extends RuntimeException {
+    private static final String RECIPE_NOT_FOUND_MESSAGE = "Recipe with id=%d was not found";
     public RecipeNotFoundException(Long id) {
-        super("Recipe with id=%d was not found".formatted(id));
+        super(RECIPE_NOT_FOUND_MESSAGE.formatted(id));
     }
 }
