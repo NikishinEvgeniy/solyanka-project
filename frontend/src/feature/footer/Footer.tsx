@@ -1,5 +1,5 @@
-import appleLeft from '../assets/images/apple-left.svg'
-import appleRight from '../assets/images/apple-right.svg'
+import appleLeft from '../../assets/images/apple-left.svg'
+import appleRight from '../../assets/images/apple-right.svg'
 
 function Footer() {
   return (
