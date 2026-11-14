@@ -1,0 +1,504 @@
+@font-face {
+  font-family: 'Valisca';
+  src: url('./assets/fonts/Valisca.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Brygada 1918', Georgia, serif;
+  color: #2f251f;
+  background: #f5efe0;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --page-padding: clamp(24px, 4.45vw, 64px);
+  --cream: #f5e8c4;
+  --brown: #493629;
+  --terracotta: #b16244;
+  --bg-light: #f4eee0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--bg-light);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+}
+
+/* Основной контейнер страницы */
+.recipes-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-light);
+  /* Фоновый паттерн ромбов с макета (можно заменить на ваш svg/png при наличии) */
+  background-image:
+    linear-gradient(135deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%);
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-size: 360px 360px;
+}
+
+/* ==================== ШАПКА (из index.css) ==================== */
+.site-header {
+  height: 96px;
+  padding: 0 var(--page-padding);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: rgba(235, 223, 192, 0.96);
+  font-family: 'Piazzolla', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand {
+  width: 230px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.brand img {
+  display: block;
+  width: 230px;
+  height: 68px;
+  max-width: none;
+  object-fit: contain;
+}
+
+.main-nav,
+.user-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.user-nav {
+  margin-left: auto;
+}
+
+.main-nav a,
+.user-nav > a:not(.favorites-link),
+.nav-button,
+.footer-content a {
+  position: relative;
+}
+
+.main-nav a::after,
+.user-nav > a:not(.favorites-link)::after,
+.nav-button::after,
+.footer-content a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after,
+.user-nav > a:not(.favorites-link):hover::after,
+.user-nav > a:not(.favorites-link):focus-visible::after,
+.nav-button:hover::after,
+.nav-button:focus-visible::after,
+.footer-content a:hover::after,
+.footer-content a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.favorites-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.heart-icon {
+  width: 21px;
+  height: 21px;
+  overflow: visible;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: center;
+}
+
+.favorites-link:hover .heart-icon,
+.favorites-link:focus-visible .heart-icon {
+  fill: #c84b3c;
+  stroke: #c84b3c;
+  animation: heart-somersault 620ms ease-in-out;
+}
+
+@keyframes heart-somersault {
+  0% { transform: rotate(0) scale(1); }
+  45% { transform: rotate(180deg) scale(1.24); }
+  75% { transform: rotate(360deg) scale(0.92); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.nav-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* ==================== КОНТЕНТ КАТАЛОГА ==================== */
+.catalog-main {
+  flex: 1;
+  padding: 40px var(--page-padding) 56px;
+}
+
+/* Верхняя панель: заголовок и кнопка «Добавить» */
+.catalog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.catalog-title {
+  margin: 0;
+  font-family: 'Brygada 1918', Georgia, serif;
+  font-size: clamp(32px, 3vw, 44px);
+  font-weight: 700;
+  color: #2f251f;
+  line-height: 1.15;
+}
+
+.add-recipe-btn {
+  min-width: 152px;
+  height: 46px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--brown);
+  color: var(--cream);
+  font-family: 'Piazzolla', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 180ms ease, transform 120ms ease;
+}
+
+.add-recipe-btn:hover,
+.add-recipe-btn:focus-visible {
+  background-color: #36271d;
+}
+
+.add-recipe-btn:active {
+  transform: translateY(1px);
+}
+
+/* Сетка карточек (3 в ряд как на макете) */
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 22px;
+}
+
+/* Карточка рецепта */
+.recipe-card {
+  background-color: var(--terracotta);
+  border-radius: 8px;
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(47, 37, 31, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(47, 37, 31, 0.14);
+}
+
+.recipe-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.recipe-card-title {
+  margin: 0;
+  font-family: 'Brygada 1918', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #f8f2e4;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recipe-card-title a:hover {
+  text-decoration: underline;
+}
+
+/* Кнопка лайка внутри карточки */
+.card-favorite-btn {
+  padding: 4px;
+  border: none;
+  background: transparent;
+  color: #f8f2e4;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-heart-icon {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 180ms ease, stroke 180ms ease, transform 180ms ease;
+}
+
+.card-favorite-btn:hover .card-heart-icon,
+.card-favorite-btn.is-active .card-heart-icon {
+  fill: #f8f2e4;
+  transform: scale(1.12);
+}
+
+/* Белый контейнер под изображение */
+.recipe-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: block;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==================== ПАГИНАЦИЯ ==================== */
+.pagination {
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Brygada 1918', Georgia, serif;
+  font-size: 16px;
+  color: #2f251f;
+}
+
+.pagination-item {
+  min-width: 24px;
+  height: 26px;
+  padding: 0 5px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.pagination-item:hover:not(.is-active) {
+  border-color: rgba(73, 54, 41, 0.4);
+}
+
+.pagination-item.is-active {
+  border: 1px solid #493629;
+  font-weight: 700;
+  cursor: default;
+}
+
+.pagination-ellipsis {
+  padding: 0 4px;
+  user-select: none;
+}
+
+/* ==================== СОСТОЯНИЯ (Пусто / Ошибка / Нет доступа) ==================== */
+.status-banner {
+  margin: 24px 0;
+  padding: 28px 32px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Brygada 1918', Georgia, serif;
+  font-size: 22px;
+}
+
+.status-empty {
+  background: rgba(235, 223, 192, 0.85);
+  border: 1px solid rgba(73, 54, 41, 0.25);
+  color: var(--brown);
+}
+
+.status-error {
+  background: rgba(200, 75, 60, 0.14);
+  border: 1px solid #c84b3c;
+  color: #8c271b;
+}
+
+.status-auth {
+  background: rgba(183, 91, 51, 0.15);
+  border: 1px solid var(--terracotta);
+  color: var(--brown);
+}
+
+/* Вспомогательный класс для скрытия блоков (для переключения состояний) */
+.is-hidden {
+  display: none !important;
+}
+
+/* ==================== ПОДВАЛ (из index.css) ==================== */
+.site-footer {
+  min-height: 112px;
+  margin-top: auto;
+  padding: 12px var(--page-padding) 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background: rgba(235, 223, 192, 0.97);
+  color: #493629;
+}
+
+.footer-apple {
+  width: 95px;
+  height: 93px;
+  object-fit: contain;
+}
+
+.footer-content {
+  min-width: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Piazzolla', Georgia, serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.footer-content p {
+  margin: 2px 0 0;
+}
+
+:focus-visible {
+  outline: 3px solid #c84b3c;
+  outline-offset: 4px;
+}
+
+/* ==================== АДАПТИВНОСТЬ ==================== */
+@media (max-width: 1080px) {
+  .recipes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .site-header {
+    height: auto;
+    min-height: 96px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand {
+    width: 190px;
+    height: 56px;
+  }
+  .brand img {
+    width: 190px;
+    height: 56px;
+  }
+  .user-nav {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header,
+  .main-nav,
+  .user-nav {
+    justify-content: center;
+  }
+  .site-header {
+    gap: 8px 20px;
+    font-size: 17px;
+  }
+  .main-nav,
+  .user-nav {
+    gap: 18px;
+  }
+  .catalog-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .recipes-grid {
+    grid-template-columns: 1fr;
+  }
+  .site-footer {
+    min-height: 150px;
+    gap: 8px;
+  }
+  .footer-apple {
+    width: 60px;
+    height: 59px;
+  }
+  .footer-content {
+    min-width: 0;
+    text-align: center;
+    font-size: 12px;
+  }
+}
