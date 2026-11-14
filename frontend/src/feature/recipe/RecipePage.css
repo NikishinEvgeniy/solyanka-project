@@ -1,0 +1,177 @@
+/* --- ОБЩИЙ ФОН И СЕТКА СТРАНИЦЫ --- */
+.recipe-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Фон с ромбиками (замени URL на свою картинку, если есть) */
+    background-color: #EBE4D5;
+    background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L40 20L20 40L0 20L20 0Z" fill="%23DCD2BD" fill-opacity="0.3"/></svg>');
+    background-size: 60px 60px;
+    font-family: 'Piazzolla', serif;
+    color: #2B1E16;
+}
+
+.recipe-main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Расстояние между верхней частью и описанием */
+}
+
+/* --- ВЕРХНИЕ КНОПКИ (НАЗАД / РЕДАКТИРОВАТЬ / УДАЛИТЬ) --- */
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.btn {
+    font-family: 'Piazzolla', serif;
+    font-size: 16px;
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-back, .btn-edit {
+    background-color: #5E4433; /* Коричневый */
+    color: #FFFFFF;
+}
+
+.btn-delete {
+    background-color: #D56B4D; /* Терракотовый */
+    color: #FFFFFF;
+    margin-left: 16px;
+}
+
+/* --- БЕЛЫЕ КАРТОЧКИ (ОБЩИЙ СТИЛЬ) --- */
+.recipe-card {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- ВЕРХНИЙ БЛОК (КАРТИНКА + ИНФО) --- */
+.recipe-main-info {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    padding: 32px;
+}
+
+/* Плейсхолдер вместо картинки */
+.image-placeholder {
+    flex: 1; /* Занимает половину */
+    background-color: #DFDCD1; /* Серый цвет как на макете */
+    border-radius: 12px;
+    aspect-ratio: 4 / 3; /* Пропорции картинки */
+}
+
+.ingredients-section {
+    flex: 1; /* Вторая половина */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #EAEAEA;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.recipe-header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #EAEAEA;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.recipe-title {
+    font-family: 'Brygada 1918', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: #2B1E16;
+}
+
+/* Иконка сердечка */
+.favorite-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #2B1E16;
+    padding: 0;
+}
+
+/* --- ИНГРЕДИЕНТЫ --- */
+.ingredients-title {
+    font-family: 'Brygada 1918', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ingredients-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    border-bottom: 1px dashed #EAEAEA;
+    padding-bottom: 8px;
+}
+
+.ingredients-list li span:last-child {
+    color: #7A7A7A;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* --- БЛОК ОПИСАНИЯ --- */
+.description-section {
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.description-section h2 {
+    font-family: 'Brygada 1918', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.description-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4A3A2F;
+    margin: 0;
+}
+
+/* --- АДАПТИВ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ --- */
+@media (max-width: 800px) {
+    .recipe-main-info {
+        flex-direction: column;
+    }
+}
