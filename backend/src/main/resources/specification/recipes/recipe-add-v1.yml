@@ -58,8 +58,8 @@ components:
           maxLength: 200
           nullable: true
         author_id:
-          type: integer
-          format: int64
+          type: string
+          format: uuid
         created_at:
           type: string
           format: date-time
