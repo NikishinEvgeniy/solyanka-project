@@ -28,6 +28,7 @@
   "enabled": true,
   "sslRequired": "external",
   "registrationAllowed": true,
+  "passwordPolicy": "length(8) and digits(1) and regexPattern(.*[a-zA-Z].*)",
   "registrationEmailAsUsername": false,
   "rememberMe": true,
   "verifyEmail": false,
@@ -468,7 +469,7 @@
       "credentials": [
         {
           "type": "password",
-          "value": "test",
+          "value": "Test12345",
           "temporary": false
         }
       ],
