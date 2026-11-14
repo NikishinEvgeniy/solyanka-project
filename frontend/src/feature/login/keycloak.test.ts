@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { keycloakInitOptions } from './client'
+import { keycloakInitOptions } from './keycloak'
 
 describe('Keycloak configuration', () => {
   it('перенаправляет неаутентифицированного пользователя на форму входа', () => {
