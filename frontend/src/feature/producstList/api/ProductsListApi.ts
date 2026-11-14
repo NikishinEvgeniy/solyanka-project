@@ -1,14 +1,4 @@
-// feature/productsList/api/ProductsListApi.ts
-
-export type Product = {
-  id: string
-  title: string
-  description?: string
-  imageUrl?: string
-  authorId?: string
-  createdAt?: string
-  updatedAt?: string
-}
+import type { Product } from '../model/Product'
 
 export type ProductsPageResponse = {
   items: Product[]
@@ -22,74 +12,46 @@ export type ProductsPageResponse = {
 type FetchProductsParams = {
   page: number
   pageSize: number
+  search?: string
 }
 
-const API_BASE = 'http://localhost:8000'
-
-function getAuthToken(): string | null {
-  return localStorage.getItem('token')
-}
-
-type ServerProduct = {
-  id: string | number
-  title: string
-  img_url?: string | null
-}
-
-type ServerResponse = {
-  recipes: ServerProduct[]
-  page: number
-  size: number
-  totalElements: number
-  last: boolean
-}
+const MOCK_PRODUCTS: Product[] = [
+  { id: '1', title: 'Говядина' },
+  { id: '2', title: 'Фарш' },
+  { id: '3', title: 'Яблоко' },
+  { id: '4', title: 'Молоко' },
+  { id: '5', title: 'Куриное филе' },
+  { id: '6', title: 'Картофель' },
+  { id: '7', title: 'Помидор' },
+  { id: '8', title: 'Сыр' },
+]
 
 export async function fetchProducts({
   page,
   pageSize,
+  search = '',
 }: FetchProductsParams): Promise<ProductsPageResponse> {
-  const token = getAuthToken()
+  await new Promise((resolve) => setTimeout(resolve, 300))
 
-  const headers: Record<string, string> = {
-    Accept: 'application/json',
-  }
-  if (token) {
-    headers.Authorization = `Bearer ${token}`
-  }
-
-  const params = new URLSearchParams({
-    page: String(page),
-    size: String(pageSize),
-  })
-
-  const response = await fetch(`${API_BASE}/recipes?${params.toString()}`, {
-    method: 'GET',
-    headers,
-  })
-
-  if (response.status === 401 || response.status === 403) {
-    throw new Error('UNAUTHORIZED')
+  // Фильтрация по поиску (для демонстрации)
+  let filtered = MOCK_PRODUCTS
+  if (search.trim()) {
+    filtered = MOCK_PRODUCTS.filter((p) =>
+      p.title.toLowerCase().includes(search.toLowerCase())
+    )
   }
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-  }
-
-  const raw = (await response.json()) as ServerResponse
-
-  const items: Product[] = (raw.recipes ?? []).map((r) => ({
-    id: String(r.id),
-    title: r.title,
-    imageUrl: r.img_url ?? undefined,
-  }))
+  const total = filtered.length
+  const totalPages = Math.max(1, Math.ceil(total / pageSize))
+  const start = (page - 1) * pageSize
+  const items = filtered.slice(start, start + pageSize)
 
   return {
     items,
-    page: raw.page,
-    pageSize: raw.size,
-    total: raw.totalElements,
-    totalPages:
-      raw.size > 0 ? Math.max(1, Math.ceil(raw.totalElements / raw.size)) : 1,
-    last: raw.last,
+    page,
+    pageSize,
+    total,
+    totalPages,
+    last: page >= totalPages,
   }
 }
