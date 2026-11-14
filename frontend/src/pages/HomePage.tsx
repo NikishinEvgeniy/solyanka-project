@@ -1,6 +1,5 @@
-import Footer from './components/Footer'
-import Header from './components/Header'
-import './home.css'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
 
 type HomePageProps = {
   onLogout: () => void
