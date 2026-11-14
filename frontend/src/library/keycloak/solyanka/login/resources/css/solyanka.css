@@ -94,6 +94,8 @@ html.login-pf body::after, body.login-pf::after {        /* малый, спра
     justify-content: center;
 }
 .login-pf-page .card-pf {
+    position: relative;
+    z-index: 1;
     width: min(calc(596 * var(--u)), 92vw) !important;
     max-width: none !important;
     margin: 0 !important;
@@ -227,7 +229,7 @@ input#kc-login, #kc-login {
     height: calc(44 * var(--u));
     border: none;
     border-radius: 999px;
-    background: var(--accent);
+    background: #C8CC92;
     color: #fff;
     font-family: var(--font);
     font-weight: 600;
@@ -236,11 +238,11 @@ input#kc-login, #kc-login {
     cursor: pointer;
     padding: 0;
 }
-input#kc-login:hover { background: var(--accent-dark); }
+input#kc-login:hover { background: #B4BA7C; }
 input#kc-login:active { transform: scale(.98); }
 
 /* ---------- Ошибки ---------- */
-.alert-error, .alert-danger, .pf-c-alert.pf-m-danger {
+.alert-error, .alert-danger, .pf-c-alert.pf-m-danger, #registration-error {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -253,6 +255,23 @@ input#kc-login:active { transform: scale(.98); }
 }
 .alert-error .pficon, .alert-danger .pficon { display: none; }
 
+/* One field-error style for the inherited login form and registration. */
+#kc-form-login [id^="input-error"], .registration-field-error {
+    display: block;
+    color: var(--error);
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: max(12px, calc(15 * var(--u)));
+    line-height: 1.4;
+    padding: 0;
+    margin: calc(5 * var(--u)) 0 0;
+    background: transparent;
+}
+#kc-form-login input[aria-invalid="true"],
+.registration-field input[aria-invalid="true"] {
+    border-color: var(--error);
+}
+
 /* ---------- Телефон ---------- */
 @media (max-width: 700px) {
     :root { --u: 1px; --pad: 24px; }
@@ -260,4 +279,78 @@ input#kc-login:active { transform: scale(.98); }
     html.login-pf body::before, body.login-pf::before { left: -14vw; top: 2vh; width: 60vw; height: 66.7vw; }
     html.login-pf body::after,  body.login-pf::after  { left: auto; right: -6vw; top: auto; bottom: -3vh; width: 42vw; height: 46.7vw; }
     .login-pf-page::before { width: 100vw; height: 90px; }
+}
+
+/* Registration shares the existing Keycloak background and local assets. */
+.login-pf-page .card-pf:has(#kc-register-form) {
+    --pad: calc(75 * var(--u));
+    width: min(calc(596 * var(--u)), 92vw) !important;
+    border-radius: calc(36 * var(--u));
+    padding-bottom: calc(24 * var(--u)) !important;
+}
+.card-pf:has(#kc-register-form) #kc-page-title {
+    height: calc(86 * var(--u));
+    font-size: calc(35 * var(--u));
+}
+.card-pf:has(#kc-register-form) #kc-content-wrapper { padding-top: calc(24 * var(--u)) !important; }
+.registration-field { margin-bottom: calc(10 * var(--u)); }
+.registration-field label {
+    display: block;
+    margin-bottom: calc(6 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: calc(22 * var(--u));
+    font-weight: 300;
+}
+.registration-field input {
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(39 * var(--u));
+    padding: 0 calc(16 * var(--u));
+    border: 1px solid #7A6450;
+    border-radius: 999px;
+    background: white;
+    color: var(--text);
+    font: 300 calc(17 * var(--u)) var(--font);
+}
+.registration-field input:focus-visible {
+    outline: 3px solid #C8CC92;
+    outline-offset: 2px;
+}
+.registration-field-error:empty, #registration-error[hidden] { display: none; }
+#password-hint { color: var(--title); font-size: max(11px, calc(12 * var(--u))); margin: calc(8 * var(--u)) 0 calc(24 * var(--u)); }
+#kc-register {
+    width: 100%;
+    min-height: calc(39 * var(--u));
+    border: 0;
+    border-radius: 999px;
+    padding: calc(6 * var(--u)) calc(12 * var(--u));
+    background: #C8CC92;
+    color: white;
+    font: 600 calc(18 * var(--u)) var(--font);
+    cursor: pointer;
+}
+#kc-register:hover { background: #B4BA7C; }
+#kc-register:disabled { opacity: .65; cursor: wait; }
+.auth-switch, #kc-registration {
+    display: block;
+    margin-top: calc(24 * var(--u));
+    text-align: center;
+    color: var(--text);
+    font-size: calc(18 * var(--u));
+}
+.auth-switch:hover, #kc-registration a:hover { color: var(--title); text-decoration: underline; }
+.auth-switch:focus-visible, #kc-register:focus-visible, #kc-login:focus-visible, #kc-registration a:focus-visible {
+    outline: 3px solid #7A6450;
+    outline-offset: 4px;
+}
+#kc-info { margin: 0; padding: 0; background: transparent; }
+#kc-info-wrapper { padding: 0; background: transparent; }
+#kc-registration { font-size: max(16px, calc(18 * var(--u))); margin-top: 18px; }
+@media (max-width: 700px) {
+    .login-pf-page { padding: 24px 12px !important; }
+    .login-pf-page .card-pf { flex-shrink: 0; }
+    .login-pf-page .card-pf:has(#kc-register-form) { --pad: 24px; }
+    .card-pf:has(#kc-register-form) #kc-page-title { height: 80px; font-size: 30px; }
+    .registration-field input { height: 46px; font-size: 18px; }
+    .auth-switch { margin-top: 22px; }
 }
