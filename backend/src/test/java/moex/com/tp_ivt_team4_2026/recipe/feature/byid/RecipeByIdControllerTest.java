@@ -1,7 +1,7 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.byid;
-import moex.com.tp_ivt_team4_2026.recipe.feature.list.repository.RecipeByIdRepository;
 import lombok.SneakyThrows;
 import moex.com.tp_ivt_team4_2026.library.AbstractIntegrationTest;
+import moex.com.tp_ivt_team4_2026.recipe.feature.byid.repository.RecipeByIdRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

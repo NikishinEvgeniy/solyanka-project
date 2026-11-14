@@ -1,11 +1,11 @@
-package moex.com.tp_ivt_team4_2026.recipe.feature.list;
+package moex.com.tp_ivt_team4_2026.recipe.feature.byid;
 
 import lombok.RequiredArgsConstructor;
 import moex.com.tp_ivt_team4_2026.api.RecipeByIdApi;
 import moex.com.tp_ivt_team4_2026.model.RecipeByIdResponseV1;
-import moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper.RecipeByIdMapper;
-import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeDto;
-import moex.com.tp_ivt_team4_2026.recipe.feature.list.service.RecipeByIdService;
+import moex.com.tp_ivt_team4_2026.recipe.feature.byid.model.RecipeDto;
+import moex.com.tp_ivt_team4_2026.recipe.feature.byid.mapper.RecipeByIdMapper;
+import moex.com.tp_ivt_team4_2026.recipe.feature.byid.service.RecipeByIdService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
