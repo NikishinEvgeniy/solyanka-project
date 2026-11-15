@@ -22,9 +22,9 @@ public class RecipeEditController implements RecipeEditApi {
     @Override
     public ResponseEntity<EditRecipeResponseV1> editRecipe(Long id, String title, String description, MultipartFile image) {
         RecipeEditRequestDto recipeEditRequestDto = recipeEditMapper.map(title, description);
-        RecipeEditResponseDto editResponseDto = recipeEditService.handle(recipeEditRequestDto);
+        RecipeEditResponseDto editResponseDto = recipeEditService.handle(id, recipeEditRequestDto);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.OK)
                 .body(recipeEditMapper.map(editResponseDto));
     }
 }

@@ -23,6 +23,8 @@ paths:
                 $ref: '#/components/schemas/EditRecipeResponseV1'
         '403':
           $ref: '../responses/forbidden-v1.yml'
+        '404':
+          $ref: '../responses/bad-request-v1.yml'
         '409':
           $ref: '../responses/conflict-v1.yml'
         '500':
@@ -60,8 +62,8 @@ components:
           maxLength: 200
           nullable: true
         author_id:
-          type: integer
-          format: int64
+          type: string
+          format: uuid
         created_at:
           type: string
           format: date-time

@@ -8,6 +8,7 @@ import moex.com.tp_ivt_team4_2026.recipe.feature.edit.model.RecipeEditResponseDt
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfiguration.class, uses = CurrentUserIdMapper.class)
 public interface RecipeEditMapper {
@@ -20,8 +21,16 @@ public interface RecipeEditMapper {
     @Mapping(target = "imageUrl", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "authorId", source = "recipeEditRequestDto", qualifiedByName = "currentAuthorId")
-    Recipe map(RecipeEditRequestDto recipeEditRequestDto);
+    @Mapping(target = "authorId", source = ".", qualifiedByName = "currentAuthorId")
+    Recipe map(RecipeEditRequestDto dto);
+
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "imageUrl", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "authorId", ignore = true)
+    void updateEntityFromDto(RecipeEditRequestDto dto, @MappingTarget Recipe recipe);
 
     EditRecipeResponseV1 map(RecipeEditResponseDto EditResponseDto);
 }
