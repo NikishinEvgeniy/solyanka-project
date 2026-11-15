@@ -46,6 +46,6 @@ export async function fetchRecipes({
     }
   }).filter(Boolean) as Recipe[]
 
-  throw new Error('500: Internal Server Error')
+  //throw new Error('500: Internal Server Error')
   return { items, page, pageSize, total, totalPages }
 }

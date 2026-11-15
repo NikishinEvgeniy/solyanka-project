@@ -1,12 +1,13 @@
 // recipesList/page/RecipesListPageContent.tsx
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   fetchRecipes,
   type RecipesPageResponse,
 } from '../api/RecipesListApi'
 import { RecipesList } from '../card/RecipesList'
 import tomatoImg from '../../../assets/images/error-tomato.svg'
-
+import '../RecipesListPage.css'
 const PAGE_SIZE = 6
 
 export function RecipesListPageContent() {
@@ -54,9 +55,9 @@ export function RecipesListPageContent() {
     <main className="catalog-main">
       <div className="catalog-header">
         <h1 className="catalog-title">Каталог рецептов</h1>
-        <a className="add-recipe-btn" href="/recipes/new">
+        <Link className="add-recipe-btn" to="/recipes/new">
           Добавить
-        </a>
+        </Link>
       </div>
 
       {status === 'error' && (

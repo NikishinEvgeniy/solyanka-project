@@ -23,7 +23,7 @@ export function RecipesList({
         ? Array.from({ length: skeletonCount }).map((_, i) => (
             <article
               key={`skeleton-${i}`}
-              className="recipe-card recipe-card--skeleton"
+              className="recipe-card-list recipe-card-list--skeleton"
               aria-hidden="true"
             />
           ))

@@ -238,7 +238,7 @@ button {
 }
 
 /* Карточка рецепта */
-.recipe-card {
+.recipe-card-list {
   background-color: var(--terracotta);
   border-radius: 8px;
   padding: 18px 20px 22px;
@@ -249,19 +249,24 @@ button {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.recipe-card:hover {
+.recipe-card-list:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(47, 37, 31, 0.14);
 }
 
-.recipe-card-header {
+.recipe-card-list--skeleton {
+  min-height: 260px;
+  background-color: rgba(177, 98, 68, 0.55);
+}
+
+.recipe-card-list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.recipe-card-title {
+.recipe-card-list-title {
   margin: 0;
   font-family: 'Brygada 1918', Georgia, serif;
   font-size: 22px;
@@ -273,7 +278,7 @@ button {
   text-overflow: ellipsis;
 }
 
-.recipe-card-title a:hover {
+.recipe-card-list-title a:hover {
   text-decoration: underline;
 }
 
