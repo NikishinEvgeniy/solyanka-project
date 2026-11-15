@@ -3,14 +3,24 @@ info:
   title: Спецификация редактирования рецепта
   version: 1.0.0
 paths:
-  /api/v1/recipes:
+  /api/v1/recipes/{id}:
     put:
       tags: [recipe-edit]
       operationId: editRecipe
       summary: Изменение рецепта
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
       requestBody:
         required: true
         content:
+
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/EditRecipeRequestV1'
@@ -23,6 +33,8 @@ paths:
                 $ref: '#/components/schemas/EditRecipeResponseV1'
         '403':
           $ref: '../responses/forbidden-v1.yml'
+        '404':
+          $ref: '../responses/bad-request-v1.yml'
         '409':
           $ref: '../responses/conflict-v1.yml'
         '500':
@@ -60,8 +72,8 @@ components:
           maxLength: 200
           nullable: true
         author_id:
-          type: integer
-          format: int64
+          type: string
+          format: uuid
         created_at:
           type: string
           format: date-time

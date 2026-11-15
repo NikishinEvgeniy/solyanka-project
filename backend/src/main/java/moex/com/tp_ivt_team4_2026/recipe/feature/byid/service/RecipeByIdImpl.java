@@ -1,7 +1,7 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.byid.service;
 
 import lombok.RequiredArgsConstructor;
-import moex.com.tp_ivt_team4_2026.recipe.feature.byid.exception.RecipeNotFoundException;
+import moex.com.tp_ivt_team4_2026.library.exception.recipe.RecipeNotFoundException;
 import moex.com.tp_ivt_team4_2026.recipe.feature.byid.model.RecipeDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.byid.mapper.RecipeByIdMapper;
 import moex.com.tp_ivt_team4_2026.recipe.feature.byid.repository.RecipeByIdRepository;
