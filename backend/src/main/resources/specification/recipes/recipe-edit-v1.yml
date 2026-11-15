@@ -3,14 +3,24 @@ info:
   title: Спецификация редактирования рецепта
   version: 1.0.0
 paths:
-  /api/v1/recipes:
+  /api/v1/recipes/{id}:
     put:
       tags: [recipe-edit]
       operationId: editRecipe
       summary: Изменение рецепта
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
       requestBody:
         required: true
         content:
+
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/EditRecipeRequestV1'
