@@ -23,7 +23,7 @@ const RecipePageContent = ({ id }: Props) => {
 
     return (
         <main className="recipe-main">
-            <RecipeActions />
+            <RecipeActions recipeId={Number(id)} />
             <RecipeCard recipe={recipe} />
             <RecipeDescription recipe={recipe} />
         </main>
