@@ -6,7 +6,7 @@ import moex.com.tp_ivt_team4_2026.recipe.feature.edit.mapper.RecipeEditMapper;
 import moex.com.tp_ivt_team4_2026.recipe.feature.edit.model.RecipeEditRequestDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.edit.model.RecipeEditResponseDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.edit.repository.RecipeEditRepository;
-import moex.com.tp_ivt_team4_2026.recipe.feature.exception.RecipeNotFoundException;
+import moex.com.tp_ivt_team4_2026.library.exception.recipe.RecipeNotFoundException;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
 import org.springframework.stereotype.Service;
 
