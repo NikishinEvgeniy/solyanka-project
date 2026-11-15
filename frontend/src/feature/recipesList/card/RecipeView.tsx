@@ -1,4 +1,5 @@
 // recipesList/card/RecipeView.tsx
+import { Link } from 'react-router-dom'
 import type { Recipe } from '../api/RecipesListApi'
 
 type RecipeViewProps = {
@@ -9,10 +10,10 @@ type RecipeViewProps = {
 
 export function RecipeView({ recipe, isFavorite, onToggleFavorite }: RecipeViewProps) {
   return (
-    <article className="recipe-card">
-      <div className="recipe-card-header">
-        <h2 className="recipe-card-title">
-          <a href={`/recipes/${recipe.id}`}>{recipe.title}</a>
+    <article className="recipe-card-list">
+      <div className="recipe-card-list-header">
+        <h2 className="recipe-card-list-title">
+          <Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
         </h2>
         <button
           className={`card-favorite-btn${isFavorite ? ' is-active' : ''}`}
@@ -26,7 +27,7 @@ export function RecipeView({ recipe, isFavorite, onToggleFavorite }: RecipeViewP
           </svg>
         </button>
       </div>
-      <a href={`/recipes/${recipe.id}`} className="recipe-image-wrapper">
+      <Link to={`/recipes/${recipe.id}`} className="recipe-image-wrapper">
         {recipe.imageUrl && (
           <img
             className="recipe-image"
@@ -35,7 +36,7 @@ export function RecipeView({ recipe, isFavorite, onToggleFavorite }: RecipeViewP
             loading="lazy"
           />
         )}
-      </a>
+      </Link>
     </article>
   )
 }
