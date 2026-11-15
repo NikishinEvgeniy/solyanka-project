@@ -1,11 +1,11 @@
 // recipesList/card/RecipesList.tsx
-import type { Recipe } from '../api/RecipesListApi'
+import type { Recipe } from '../model/Recipe'
 import { RecipeView } from './RecipeView'
 
 type RecipesListProps = {
   recipes: Recipe[]
-  favorites: Set<string>
-  onToggleFavorite: (id: string) => void
+  favorites: Set<number> // Изменено на number
+  onToggleFavorite: (id: number) => void // Изменено на number
   isLoading?: boolean
   skeletonCount?: number
 }
