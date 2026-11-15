@@ -1,13 +1,14 @@
-package moex.com.tp_ivt_team4_2026.recipe.feature.byid;
+package moex.com.tp_ivt_team4_2026.recipe.feature.byid.mapper;
 
 import javax.annotation.processing.Generated;
 import moex.com.tp_ivt_team4_2026.model.RecipeByIdResponseV1;
+import moex.com.tp_ivt_team4_2026.recipe.feature.byid.model.RecipeDto;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-11-14T20:17:57+0300",
+    date = "2026-11-15T12:59:32+0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 22.0.2 (Eclipse Adoptium)"
 )
 @Component

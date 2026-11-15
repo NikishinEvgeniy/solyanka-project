@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Спецификация удаления рецепта
+  version: 1.0.0
+paths:
+  /api/v1/recipes/{id}:
+    delete:
+      tags: [delete-recipe]
+      operationId: deleteById
+      summary: Удаление рецепта по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
+      responses:
+        '200':
+          description: Успешное удаление рецепта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeDeleteResponseV1'
+        '404':
+          $ref: '../responses/bad-request-v1.yml'
+        '500':
+          $ref: '../responses/internal-server-error-v1.yml'
+
+components:
+  schemas:
+    RecipeDeleteResponseV1:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: Описание состояния выполнения удаления

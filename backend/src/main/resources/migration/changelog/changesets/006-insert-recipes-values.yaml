@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-insert-recipes-values-v3
+      author: team4
+      changes:
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column: { name: title, value: "Борщ" }
+              - column: { name: description, value: "Классический борщ со свёклой, капустой и говядиной." }
+              - column: { name: image_url, value: "https://picsum.photos/seed/borscht/800/600" }
+              - column: { name: author_id, value: "f487447c-dabd-448e-8531-859f46b92136" }
+              - column: { name: created_at, valueDate: "2026-11-15T09:00:00" }
+              - column: { name: updated_at, valueDate: "2026-11-15T09:00:00" }
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column: { name: title, value: "Окрошка" }
+              - column: { name: description, value: "Летний холодный суп на кефире с картофелем, огурцами и колбасой." }
+              - column: { name: image_url, value: "https://picsum.photos/seed/okroshka/800/600" }
+              - column: { name: author_id, value: "f487447c-dabd-448e-8531-859f46b92136" }
+              - column: { name: created_at, valueDate: "2026-11-15T09:00:00" }
+              - column: { name: updated_at, valueDate: "2026-11-15T09:00:00" }
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column: { name: title, value: "Пельмени" }
+              - column: { name: description, value: "Домашние пельмени с говядиной и свининой, подаются со сметаной." }
+              - column: { name: image_url, value: "https://picsum.photos/seed/pelmeni/800/600" }
+              - column: { name: author_id, value: "f487447c-dabd-448e-8531-859f46b92136" }
+              - column: { name: created_at, valueDate: "2026-11-15T09:00:00" }
+              - column: { name: updated_at, valueDate: "2026-11-15T09:00:00" }
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column: { name: title, value: "Блины" }
+              - column: { name: description, value: "Тонкие блины на молоке, подаются с маслом, вареньем или сгущёнкой." }
+              - column: { name: image_url, value: "https://picsum.photos/seed/blini/800/600" }
+              - column: { name: author_id, value: "f487447c-dabd-448e-8531-859f46b92136" }
+              - column: { name: created_at, valueDate: "2026-11-15T09:00:00" }
+              - column: { name: updated_at, valueDate: "2026-11-15T09:00:00" }
+        - insert:
+            schemaName: solyanka
+            tableName: recipes
+            columns:
+              - column: { name: title, value: "Оливье" }
+              - column: { name: description, value: "Новогодний салат с колбасой, картофелем, горошком и майонезом." }
+              - column: { name: image_url, value: "https://picsum.photos/seed/olivier/800/600" }
+              - column: { name: author_id, value: "f487447c-dabd-448e-8531-859f46b92136" }
+              - column: { name: created_at, valueDate: "2026-11-15T09:00:00" }
+              - column: { name: updated_at, valueDate: "2026-11-15T09:00:00" }

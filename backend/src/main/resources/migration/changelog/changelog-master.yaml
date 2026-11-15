@@ -9,3 +9,5 @@ databaseChangeLog:
       file: migration/changelog/changesets/004-create-ingredients-table.yaml
   - include:
       file: migration/changelog/changesets/005-insert-products-values.yaml
+  - include:
+      file: migration/changelog/changesets/006-insert-recipes-values.yaml
