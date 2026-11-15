@@ -2,28 +2,31 @@ import RecipeActions from '../card/RecipeActions.tsx';
 import RecipeCard from '../card/RecipeCard.tsx';
 import RecipeDescription from '../card/RecipeDescription.tsx';
 import { useRecipe } from '../hooks/useRecipe';
+import { useNavigate } from 'react-router-dom';
+import styles from '../RecipePage.module.css';
 
 type Props = { id?: string };
 
 const RecipePageContent = ({ id }: Props) => {
+    const navigate = useNavigate();
     const { data: recipe, isLoading, isError, error } = useRecipe(id);
 
-    if (isLoading) return <main className="recipe-main">Загрузка...</main>;
+    if (isLoading) return <main className={styles['recipe-main']}>Загрузка...</main>;
 
     if (isError) {
         const message = error instanceof Error ? error.message : 'Неизвестная ошибка';
         return (
-            <main className="recipe-main">
+            <main className={styles['recipe-main']}>
                 <div className="recipe-menu__error" role="alert">{message}</div>
             </main>
         );
     }
 
-    if (!recipe) return <main className="recipe-main">Рецепт не найден</main>;
+    if (!recipe) return <main className={styles['recipe-main']}>Рецепт не найден</main>;
 
     return (
-        <main className="recipe-main">
-            <RecipeActions recipeId={Number(id)} />
+        <main className={styles['recipe-main']}>
+            <RecipeActions recipeId={recipe.id} onEdit={() => navigate(`/recipes/${recipe.id}/edit`)} />
             <RecipeCard recipe={recipe} />
             <RecipeDescription recipe={recipe} />
         </main>

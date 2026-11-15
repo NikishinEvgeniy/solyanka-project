@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDeleteRecipe } from '../hooks/useDeleteRecipe';
+import styles from '../RecipePage.module.css';
 
 interface Props {
     recipeId: number;
@@ -20,15 +21,15 @@ export const RecipeActions = ({ recipeId, onEdit, onDelete }: Props) => {
     };
 
     return (
-        <div className="top-actions">
-            <button className="btn btn-back" onClick={() => navigate('/recipes')}>Назад</button>
-            <div className="btn-actions">
-                <button className="btn btn-edit" onClick={onEdit}>Редактировать</button>
-                <button className="btn btn-delete" onClick={handleDelete} disabled={isPending}>
+        <div className={styles['top-actions']}>
+            <button className={`${styles.btn} ${styles['btn-back']}`} onClick={() => navigate('/recipes')}>Назад</button>
+            <div className={styles['btn-actions']}>
+                <button className={`${styles.btn} ${styles['btn-edit']}`} onClick={onEdit}>Редактировать</button>
+                <button className={`${styles.btn} ${styles['btn-delete']}`} onClick={handleDelete} disabled={isPending}>
                     {isPending ? 'Удаление...' : 'Удалить'}
                 </button>
             </div>
-            {error && <p className="error">Не удалось удалить рецепт</p>}
+            {error && <p role="alert">Не удалось удалить рецепт</p>}
         </div>
     );
 };
