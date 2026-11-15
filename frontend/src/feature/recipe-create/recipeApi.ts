@@ -1,3 +1,5 @@
+import { recipeApiBase } from '../recipe/api'
+
 export type Recipe = {
   id: number
   title: string
@@ -9,24 +11,32 @@ export type Recipe = {
 
 export type FieldErrors = { title?: string; description?: string; image?: string }
 
-export function validateRecipe(title: string, description: string): FieldErrors {
+export function validateRecipe(title: string, description: string, image?: File): FieldErrors {
   const errors: FieldErrors = {}
   if (!title.trim()) errors.title = 'Введите название рецепта'
-  else if (title.length > 100) errors.title = 'Название не должно превышать 100 символов'
+  else if (title.trim().length > 100) errors.title = 'Название не должно превышать 100 символов'
   if (!description.trim()) errors.description = 'Введите описание рецепта'
+  if (image && !['image/jpeg', 'image/png'].includes(image.type)) errors.image = 'Выберите изображение JPG или PNG'
+  else if (image && image.size > 10 * 1024 * 1024) errors.image = 'Размер изображения не должен превышать 10 МБ'
   return errors
 }
 
 export class RecipeApiError extends Error {
   status: number
   constructor(status: number) {
-    super(`Recipe API: ${status}`)
+    const messages: Record<number, string> = {
+      400: 'Проверьте заполненные поля и изображение',
+      401: 'Сессия истекла. Войдите снова',
+      403: 'Недостаточно прав для создания рецепта',
+      409: 'Рецепт с таким названием уже существует',
+      413: 'Размер изображения не должен превышать 10 МБ',
+    }
+    super(messages[status] ?? 'Не удалось сохранить рецепт. Попробуйте ещё раз')
     this.status = status
   }
 }
 
-// Same-origin /api in production; override for a separately hosted backend.
-const endpoint = `${import.meta.env.VITE_API_BASE_URL ?? ''}/api/v1/recipes`
+const endpoint = `${recipeApiBase}/api/v1/recipes`
 
 export async function recipeRequest(token: string, path = '', init?: RequestInit) {
   const response = await fetch(`${endpoint}${path}`, {
