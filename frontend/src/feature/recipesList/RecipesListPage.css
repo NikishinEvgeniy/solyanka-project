@@ -49,13 +49,12 @@ button {
   color: inherit;
 }
 
-/* Основной контейнер страницы */
+
 .recipes-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-light);
-  /* Фоновый паттерн ромбов с макета (можно заменить на ваш svg/png при наличии) */
   background-image:
     linear-gradient(135deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%),
     linear-gradient(225deg, rgba(215, 209, 178, 0.35) 25%, transparent 25%),
