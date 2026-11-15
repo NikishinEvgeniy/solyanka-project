@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { fetchProducts, type ProductsPageResponse } from '../api/ProductsListApi'
+import { useEffect, useState, useMemo } from 'react'
+import { useProducts } from '../hooks/useProducts' // Укажите правильный путь
 import { ProductsList } from '../card/ProductsList'
 import type { Product } from '../model/Product'
 
@@ -11,39 +11,34 @@ type Props = {
 }
 
 export function ProductsListPageContent({ onSelect, onClose }: Props) {
+  const { data: allProducts, isLoading, isError } = useProducts()
+
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
-  const [data, setData] = useState<ProductsPageResponse | null>(null)
-  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
+  // Сбрасываем страницу при изменении поиска
   useEffect(() => {
-    let cancelled = false
-    setStatus('loading')
+    setPage(1)
+  }, [search])
 
-    fetchProducts({ page, pageSize: PAGE_SIZE, search })
-      .then((res) => {
-        if (cancelled) return
-        setData(res)
-        setStatus('idle')
-      })
-      .catch(() => {
-        if (cancelled) return
-        setStatus('error')
-      })
+  // Клиентская фильтрация и пагинация
+  const { currentProducts, totalPages } = useMemo(() => {
+    const filtered = allProducts?.filter((p) =>
+      p.title.toLowerCase().includes(search.toLowerCase())
+    ) ?? []
 
-    return () => {
-      cancelled = true
-    }
-  }, [page, search])
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+    const start = (page - 1) * PAGE_SIZE
+    const currentProducts = filtered.slice(start, start + PAGE_SIZE)
+
+    return { currentProducts, totalPages }
+  }, [allProducts, search, page])
 
   const handleSelect = (product: Product) => {
     setSelectedProduct(product)
     onSelect(product)
   }
-
-  const products = data?.items ?? []
-  const totalPages = data?.totalPages ?? 1
 
   return (
     <div className="product-modal-content">
@@ -61,25 +56,23 @@ export function ProductsListPageContent({ onSelect, onClose }: Props) {
           type="text"
           placeholder="Введите название продукта..."
           value={search}
-          onChange={(e) => {
-            setSearch(e.target.value)
-            setPage(1) // сбрасываем на 1-ю страницу при поиске
-          }}
+          onChange={(e) => setSearch(e.target.value)}
           className="search-input"
         />
       </div>
 
       {/* Список продуктов */}
       <div className="modal-body">
-        {status === 'loading' && !data && <div className="loading-text">Загрузка...</div>}
-        {status === 'error' && <div className="error-text">Ошибка загрузки</div>}
-        {status === 'idle' && products.length === 0 && (
+        {isLoading && <div className="loading-text">Загрузка...</div>}
+        {isError && <div className="error-text">Ошибка загрузки</div>}
+
+        {!isLoading && !isError && currentProducts.length === 0 && (
           <div className="empty-text">Ничего не найдено</div>
         )}
 
-        {status === 'idle' && products.length > 0 && (
+        {!isLoading && !isError && currentProducts.length > 0 && (
           <ProductsList
-            products={products}
+            products={currentProducts}
             selectedId={selectedProduct?.id}
             onSelect={handleSelect}
           />
