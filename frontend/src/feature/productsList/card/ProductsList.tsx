@@ -3,7 +3,7 @@ import { ProductCard } from './ProductCard'
 
 type ProductsListProps = {
   products: Product[]
-  selectedId?: string
+  selectedId?: number // Изменено со string на number
   onSelect: (product: Product) => void
 }
 
