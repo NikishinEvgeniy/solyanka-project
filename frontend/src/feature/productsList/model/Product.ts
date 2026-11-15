@@ -1,4 +1,5 @@
 export type Product = {
-  id: string
-  title: string
-}
+  id: number;
+  title: string;
+  imageUrl?: string; // Оставил на случай, если пригодится
+};
