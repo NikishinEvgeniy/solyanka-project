@@ -5,7 +5,11 @@ type Props = { recipe: RecipeData };
 
 const RecipeCard = ({ recipe }: Props) => (
     <div className="recipe-card recipe-main-info">
-        <div className="image-placeholder" />
+        <img
+            className="image-placeholder"
+            src={recipe.image_url}
+            alt={recipe.title}
+        />
         <div className="ingredients-section">
             <div className="recipe-header-title">
                 <h1 className="recipe-title">{recipe.title}</h1>
