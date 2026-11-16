@@ -82,7 +82,7 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
           <label htmlFor="edit-description">Описание *</label>
           <textarea id="edit-description" value={description} required placeholder="Описание" aria-invalid={!!errors.description} aria-describedby="error-description" onChange={e => setDescription(e.target.value)} />{fieldError('description')}
           {recipe.image_url && <img src={recipe.image_url} alt="Текущее фото блюда" style={{ maxWidth: '100%', maxHeight: 240 }} />}
-          <div className="edit-upload"><div><strong>Фото блюда</strong><p>Изменение фото пока недоступно</p></div></div>
+          <div className="edit-upload"><div><strong>Фото рецепта</strong></div></div>
         </fieldset>
         <div className="edit-actions"><button type="submit" className="edit-primary" disabled={busy}>{busy ? 'Сохранение…' : 'Сохранить'}</button>{!busy && <Link to={`/recipes/${id}`}>Отмена</Link>}</div>
         {notice && <p className="edit-notice" role="alert">{notice}</p>}
