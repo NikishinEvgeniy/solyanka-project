@@ -1,7 +1,28 @@
 import { Link } from 'react-router-dom'
+import { useKeycloak } from '@react-keycloak/web'
+import { useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 import logo from '../../assets/images/logo.png'
 
 function Header() {
+    const { keycloak } = useKeycloak()
+    const queryClient = useQueryClient()
+    const [loggingOut, setLoggingOut] = useState(false)
+    const [logoutError, setLogoutError] = useState('')
+
+    async function logout() {
+        if (loggingOut) return
+        setLoggingOut(true)
+        setLogoutError('')
+        try {
+            await queryClient.cancelQueries()
+            queryClient.clear()
+            await keycloak.logout({ redirectUri: new URL('/', window.location.href).href })
+        } catch {
+            setLogoutError('Не удалось выйти. Попробуйте ещё раз.')
+            setLoggingOut(false)
+        }
+    }
     return (
         <header className="site-header">
             <Link className="brand" to="/" aria-label="Солянка — главная страница">
@@ -21,9 +42,10 @@ function Header() {
                     <span aria-hidden="true">X</span>
                 </Link>
                 <Link to="/profile">Профиль</Link>
-                <button className="nav-button" type="button">
-                    Выйти
+                <button className="nav-button" type="button" disabled={loggingOut} onClick={() => void logout()}>
+                    {loggingOut ? 'Выход…' : 'Выйти'}
                 </button>
+                {logoutError && <span role="alert">{logoutError}</span>}
             </nav>
         </header>
     )

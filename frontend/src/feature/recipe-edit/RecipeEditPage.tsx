@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { useKeycloak } from '@react-keycloak/web'
 import { useRecipe } from '../recipe/hooks/useRecipe'
 import type { RecipeData } from '../recipe/model/Recipe'
@@ -8,6 +9,7 @@ import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import { validate } from './recipeEditValidation'
 import type { Errors } from './recipeEditValidation'
+import { editRecipe, RecipeEditError } from './recipeEditApi'
 import './RecipeEditPage.css'
 
 export default function RecipeEditPage() {
@@ -28,13 +30,45 @@ function LoadedEditor({ id }: { id: string }) {
 function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
   const [title, setTitle] = useState(recipe.title)
   const [description, setDescription] = useState(recipe.description)
-  const [image, setImage] = useState<File>()
   const [errors, setErrors] = useState<Errors>({})
-  const fileInput = useRef<HTMLInputElement>(null)
-  function submit(event: FormEvent) {
+  const [busy, setBusy] = useState(false)
+  const [notice, setNotice] = useState('')
+  const submitting = useRef(false)
+  const { keycloak } = useKeycloak()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  async function submit(event: FormEvent) {
     event.preventDefault()
-    const validation = validate(title, description, image)
+    if (submitting.current) return
+    setNotice('')
+    const validation = validate(title, description)
     setErrors(validation)
+    if (Object.keys(validation).length) return
+    submitting.current = true
+    setBusy(true)
+    try {
+      if (!keycloak.authenticated) throw new RecipeEditError(401)
+      try {
+        await keycloak.updateToken(30)
+      } catch {
+        throw new RecipeEditError(401)
+      }
+      if (!keycloak.token) throw new RecipeEditError(401)
+      const saved = await editRecipe(keycloak.token, id, title, description)
+      await queryClient.cancelQueries({ queryKey: ['recipe', id] })
+      queryClient.setQueryData(['recipe', id], saved)
+      void queryClient.invalidateQueries({ queryKey: ['recipes'] })
+      navigate(`/recipes/${id}`)
+    } catch (error) {
+      if (error instanceof RecipeEditError && error.status === 409) {
+        setErrors({ title: error.message })
+      } else {
+        setNotice(error instanceof RecipeEditError ? error.message : 'Ошибка сохранения. Попробуйте ещё раз.')
+      }
+    } finally {
+      submitting.current = false
+      setBusy(false)
+    }
   }
   function fieldError(name: string) {
     return errors[name] && <p className="edit-error" id={`error-${name}`} role="alert">{errors[name]}</p>
@@ -42,18 +76,16 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
   return <div className="recipe-edit"><Header /><main className="edit-main">
     <h1>Редактирование рецепта</h1>
       <form onSubmit={submit} noValidate><div className="edit-grid"><div>
-        <fieldset className="edit-panel"><h2>Основная информация</h2>
+        <fieldset className="edit-panel" disabled={busy}><h2>Основная информация</h2>
           <label htmlFor="edit-title">Название рецепта *</label>
           <input id="edit-title" value={title} required placeholder="Название" aria-invalid={!!errors.title} aria-describedby="error-title" onChange={e => setTitle(e.target.value)} />{fieldError('title')}
           <label htmlFor="edit-description">Описание *</label>
           <textarea id="edit-description" value={description} required placeholder="Описание" aria-invalid={!!errors.description} aria-describedby="error-description" onChange={e => setDescription(e.target.value)} />{fieldError('description')}
           {recipe.image_url && <img src={recipe.image_url} alt="Текущее фото блюда" style={{ maxWidth: '100%', maxHeight: 240 }} />}
-          <div className="edit-upload"><div><strong>Фото блюда</strong><p>{image?.name || 'Файл не выбран. Форматы: JPG, PNG. До 10 МБ'}</p></div>
-            <input ref={fileInput} type="file" accept="image/jpeg,image/png" aria-label="Фото блюда" aria-invalid={!!errors.image} aria-describedby="error-image" onChange={e => setImage(e.target.files?.[0])} />
-            <button type="button" onClick={() => fileInput.current?.click()}>Выбрать файл</button></div>{fieldError('image')}
+          <div className="edit-upload"><div><strong>Фото рецепта</strong></div></div>
         </fieldset>
-        <div className="edit-actions"><button className="edit-primary" disabled aria-describedby="edit-unavailable">Сохранить</button><Link to={`/recipes/${id}`}>Отмена</Link></div>
-        <p className="edit-notice" id="edit-unavailable" role="status">Сохранение изменений временно недоступно</p>
+        <div className="edit-actions"><button type="submit" className="edit-primary" disabled={busy}>{busy ? 'Сохранение…' : 'Сохранить'}</button>{!busy && <Link to={`/recipes/${id}`}>Отмена</Link>}</div>
+        {notice && <p className="edit-notice" role="alert">{notice}</p>}
       </div><aside className="edit-panel"><h2>Данные рецепта</h2><p>Рецепт №{id}</p><hr /></aside></div></form>
   </main><Footer /></div>
 }

@@ -23,7 +23,7 @@ export const RecipeActions = ({ recipeId, onEdit, onDelete }: Props) => {
         <div className="top-actions">
             <button className="btn btn-back" onClick={() => navigate('/recipes')}>Назад</button>
             <div className="btn-actions">
-                <button className="btn btn-edit" onClick={onEdit}>Редактировать</button>
+                <button className="btn btn-edit" onClick={() => onEdit ? onEdit() : navigate(`/recipes/${recipeId}/edit`)}>Редактировать</button>
                 <button className="btn btn-delete" onClick={handleDelete} disabled={isPending}>
                     {isPending ? 'Удаление...' : 'Удалить'}
                 </button>
