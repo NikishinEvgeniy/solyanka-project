@@ -1,18 +1,39 @@
+
 export function validateRegistration(values) {
   const errors = {}
+
   for (const name of ['email', 'username', 'password', 'password-confirm']) {
     if (!values[name]?.trim()) errors[name] = 'Обязательное поле'
   }
+
+  // Email и логин не должны совпадать
+  if (
+    !errors.email &&
+    !errors.username &&
+    values.email.trim().toLowerCase() === values.username.trim().toLowerCase()
+  ) {
+    errors.username = 'Email и логин должны отличаться'
+  }
+
   if (!errors.email && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)+$/.test(values.email)) {
     errors.email = 'Введите корректный Email, например name@example.ru'
   }
-  if (!errors.username && (values.username.length < 3 || values.username.length > 255)) errors.username = 'Логин должен содержать от 3 до 255 символов'
+
+  if (!errors.username && (values.username.length < 3 || values.username.length > 255)) {
+    errors.username = 'Логин должен содержать от 3 до 255 символов'
+  }
+
   if (!errors.password && (values.password.length < 8 || !/[A-Za-z]/.test(values.password) || !/[0-9]/.test(values.password))) {
     errors.password = 'Пароль должен содержать минимум 8 символов, латинские буквы и цифры'
   }
-  if (!errors['password-confirm'] && values.password !== values['password-confirm']) errors['password-confirm'] = 'Пароли не совпадают'
+
+  if (!errors['password-confirm'] && values.password !== values['password-confirm']) {
+    errors['password-confirm'] = 'Пароли не совпадают'
+  }
+
   return errors
 }
+
 
 export function mountRegistration(form) {
   form.addEventListener('submit', async (event) => {
