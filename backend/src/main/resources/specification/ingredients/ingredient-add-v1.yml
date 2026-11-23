@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Спецификация добавления ингредиента
+  version: 1.0.0
+paths:
+  /api/v1/recipes/{recipe_id}/ingredients:
+    post:
+      tags: [ingredient-add]
+      summary: Добавление ингредиента
+      parameters:
+        - name: recipe_id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
+          requestBody:
+            required: true
+            content:
+              multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/AddIngredientRequestV1'
+          responses:
+            '201':
+              description: Успешное добавление ингредиента
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddIngredientResponseV1'
+            '403':
+              $ref: '../responses/forbidden-v1.yml'
+            '409':
+              $ref: '../responses/conflict-v1.yml'
+            '500':
+              $ref: '../responses/internal-server-error-v1.yml'
+components:
+  schemas:
+    AddIngredientRequestV1:
+      type: object
+      required: [product_id, amount, unit]
+      properties:
+        product_id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        unit:
+          type: string
+          maxLength: 50
+          image:
+            type: string
+            format: binary
+            nullable: true
+            description: Файл изображения
+    AddIngredientResponseV1:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
