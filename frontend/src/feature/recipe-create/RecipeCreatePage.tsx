@@ -3,6 +3,7 @@ import type { FormEvent } from 'react'
 import { useKeycloak } from '@react-keycloak/web'
 import { Link, useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
+import PhotoField from '../../library/photo/PhotoField'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import { RecipeApiError, saveRecipe, validateRecipe } from './recipeApi'
@@ -20,7 +21,6 @@ export default function RecipeCreatePage() {
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState('')
   const submitting = useRef(false)
-  const fileInput = useRef<HTMLInputElement>(null)
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -75,17 +75,12 @@ export default function RecipeCreatePage() {
                 aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'description-error' : undefined}
                 onChange={event => { setDescription(event.target.value); setErrors(previous => ({ ...previous, description: undefined })) }} />
               {errors.description && <p className="recipe-editor-error" id="description-error" role="alert">{errors.description}</p>}
-              <div className="recipe-editor-upload">
-                <div><strong>Фото блюда</strong><p>{image?.name || 'Файл не выбран. Форматы: JPG, PNG. До 10 МБ'}</p></div>
-                <input ref={fileInput} id="recipe-image" type="file" accept="image/jpeg,image/png" aria-label="Фото блюда"
-                  aria-invalid={Boolean(errors.image)} aria-describedby={errors.image ? 'image-error' : undefined}
-                  onChange={event => {
-                    const file = event.target.files?.[0]
-                    setImage(file)
-                    setErrors(previous => ({ ...previous, image: validateRecipe(title, description, file).image }))
-                  }} />
-                <button type="button" onClick={() => fileInput.current?.click()}>Выбрать файл</button>
-              </div>
+              <PhotoField id="recipe-image" title="Фото блюда" file={image}
+                errorId={errors.image ? 'image-error' : undefined}
+                onSelect={file => {
+                  setImage(file)
+                  setErrors(previous => ({ ...previous, image: validateRecipe(title, description, file).image }))
+                }} />
               {errors.image && <p className="recipe-editor-error" id="image-error" role="alert">{errors.image}</p>}
             </fieldset>
             <aside className="recipe-editor-panel recipe-editor-meta">
