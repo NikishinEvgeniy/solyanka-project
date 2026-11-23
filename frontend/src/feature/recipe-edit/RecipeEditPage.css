@@ -19,6 +19,7 @@
 .edit-actions { display: flex; gap: 12px; margin-top: 32px; }
 .edit-notice { max-width: 450px; padding: 16px 24px; border-radius: 5px; background: #3f5c70; color: white; }
 .edit-grid aside p { margin: 26px 0; overflow-wrap: anywhere; }
+.edit-ingredients { margin-top: 28px; }
 .edit-grid hr { border: 0; border-top: 1px solid #493629; }
 .recipe-edit .site-footer { margin-top: 0; }
 @media (max-width: 900px) { .edit-grid { grid-template-columns: 1fr; } }

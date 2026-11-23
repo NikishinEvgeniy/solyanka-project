@@ -32,5 +32,6 @@
 .recipe-editor-notice { position: fixed; bottom: 24px; left: var(--page-padding); max-width: calc(100vw - 48px); padding: 18px 28px; border-radius: 5px; background: #3f5c70; color: white; z-index: 10; }
 .recipe-editor-notice.success { background: #3b6242; }
 .recipe-editor .site-footer { margin-top: 0; }
+.recipe-editor-ingredients { margin-top: 28px; }
 @media (max-width: 900px) { .recipe-editor-grid { grid-template-columns: 1fr; } .recipe-editor-meta { order: 1; } }
 @media (max-width: 480px) { .recipe-editor-panel { padding: 18px; } .recipe-editor-upload { align-items: start; flex-direction: column; } }
