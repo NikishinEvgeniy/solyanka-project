@@ -8,14 +8,16 @@ const PAGE_SIZE = 4
 type Props = {
   onSelect: (product: Product) => void
   onClose: () => void
+  selectedId?: number
 }
 
-export function ProductsListPageContent({ onSelect, onClose }: Props) {
+export function ProductsListPageContent({ onSelect, onClose, selectedId: initialSelectedId }: Props) {
   const { data: allProducts, isLoading, isError } = useProducts()
 
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const selectedId = selectedProduct?.id ?? initialSelectedId
 
   // Сбрасываем страницу при изменении поиска
   useEffect(() => {
@@ -58,6 +60,8 @@ export function ProductsListPageContent({ onSelect, onClose }: Props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="search-input"
+          aria-label="Поиск продукта"
+          autoFocus
         />
       </div>
 
@@ -73,7 +77,7 @@ export function ProductsListPageContent({ onSelect, onClose }: Props) {
         {!isLoading && !isError && currentProducts.length > 0 && (
           <ProductsList
             products={currentProducts}
-            selectedId={selectedProduct?.id}
+            selectedId={selectedId}
             onSelect={handleSelect}
           />
         )}

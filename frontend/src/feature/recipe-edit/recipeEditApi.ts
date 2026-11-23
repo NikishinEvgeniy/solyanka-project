@@ -16,10 +16,19 @@ export class RecipeEditError extends Error {
   }
 }
 
-export async function editRecipe(token: string, id: string, title: string, description: string): Promise<RecipeData> {
+export type IngredientPayload = { product_id: number; amount: number; unit: string }
+
+export async function editRecipe(
+  token: string,
+  id: string,
+  title: string,
+  description: string,
+  ingredients?: IngredientPayload[],
+): Promise<RecipeData> {
   const body = new FormData()
   body.append('title', title.trim())
   body.append('description', description.trim())
+  if (ingredients) body.append('ingredients', JSON.stringify(ingredients))
   const response = await fetch(`${recipeApiBase}/api/v1/recipes/${encodeURIComponent(id)}`, {
     method: 'PUT',
     headers: { Authorization: `Bearer ${token}` },

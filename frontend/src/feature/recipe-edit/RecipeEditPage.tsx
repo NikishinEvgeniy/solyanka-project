@@ -10,6 +10,7 @@ import Footer from '../footer/Footer'
 import { validate } from './recipeEditValidation'
 import type { Errors } from './recipeEditValidation'
 import { editRecipe, RecipeEditError } from './recipeEditApi'
+import { IngredientsForm, useIngredientsForm } from '../ingredients-form'
 import './RecipeEditPage.css'
 
 export default function RecipeEditPage() {
@@ -31,6 +32,7 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
   const [title, setTitle] = useState(recipe.title)
   const [description, setDescription] = useState(recipe.description)
   const [errors, setErrors] = useState<Errors>({})
+  const ingredients = useIngredientsForm()
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState('')
   const submitting = useRef(false)
@@ -43,7 +45,11 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
     setNotice('')
     const validation = validate(title, description)
     setErrors(validation)
-    if (Object.keys(validation).length) return
+    const ingredientsValid = ingredients.validate()
+    if (Object.keys(validation).length || !ingredientsValid) {
+      requestAnimationFrame(() => document.querySelector<HTMLElement>('.recipe-edit [aria-invalid=true]')?.focus())
+      return
+    }
     submitting.current = true
     setBusy(true)
     try {
@@ -54,7 +60,7 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
         throw new RecipeEditError(401)
       }
       if (!keycloak.token) throw new RecipeEditError(401)
-      const saved = await editRecipe(keycloak.token, id, title, description)
+      const saved = await editRecipe(keycloak.token, id, title, description, ingredients.toPayload())
       await queryClient.cancelQueries({ queryKey: ['recipe', id] })
       queryClient.setQueryData(['recipe', id], saved)
       void queryClient.invalidateQueries({ queryKey: ['recipes'] })
@@ -84,6 +90,7 @@ function Editor({ id, recipe }: { id: string; recipe: RecipeData }) {
           {recipe.image_url && <img src={recipe.image_url} alt="Текущее фото блюда" style={{ maxWidth: '100%', maxHeight: 240 }} />}
           <div className="edit-upload"><div><strong>Фото рецепта</strong></div></div>
         </fieldset>
+        <IngredientsForm form={ingredients} disabled={busy} className="edit-ingredients" />
         <div className="edit-actions"><button type="submit" className="edit-primary" disabled={busy}>{busy ? 'Сохранение…' : 'Сохранить'}</button>{!busy && <Link to={`/recipes/${id}`}>Отмена</Link>}</div>
         {notice && <p className="edit-notice" role="alert">{notice}</p>}
       </div><aside className="edit-panel"><h2>Данные рецепта</h2><p>Рецепт №{id}</p><hr /></aside></div></form>

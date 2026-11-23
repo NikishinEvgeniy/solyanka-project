@@ -7,6 +7,7 @@ import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import { RecipeApiError, saveRecipe, validateRecipe } from './recipeApi'
 import type { FieldErrors } from './recipeApi'
+import { IngredientsForm, useIngredientsForm } from '../ingredients-form'
 import './RecipeCreatePage.css'
 
 export default function RecipeCreatePage() {
@@ -21,6 +22,7 @@ export default function RecipeCreatePage() {
   const [notice, setNotice] = useState('')
   const submitting = useRef(false)
   const fileInput = useRef<HTMLInputElement>(null)
+  const ingredientsForm = useIngredientsForm()
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -28,7 +30,8 @@ export default function RecipeCreatePage() {
     setNotice('')
     const validation = validateRecipe(title, description, image)
     setErrors(validation)
-    if (Object.keys(validation).length) return
+    const ingredientsValid = ingredientsForm.validate()
+if (Object.keys(validation).length > 0 || !ingredientsValid) return
     submitting.current = true
     setBusy(true)
     try {
@@ -93,7 +96,13 @@ export default function RecipeCreatePage() {
               <p>Дата создания: {new Date().toLocaleDateString('ru-RU')}</p>
               <hr />
             </aside>
+            <IngredientsForm
+            form={ingredientsForm}
+            disabled={busy}
+            className="recipe-editor-ingredients"
+            />
           </div>
+
           <div className="recipe-editor-actions">
             <button type="submit" disabled={busy}>{busy ? 'Сохранение…' : 'Сохранить'}</button>
             {!busy && <Link to="/recipes">Отмена</Link>}
