@@ -1,6 +1,7 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper;
 
 import moex.com.tp_ivt_team4_2026.library.mapstruct.MapperConfiguration;
+import moex.com.tp_ivt_team4_2026.library.paging.model.PageDataDto;
 import moex.com.tp_ivt_team4_2026.model.RecipeCardResponseV1;
 import moex.com.tp_ivt_team4_2026.model.RecipeListResponseV1;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeCardDto;
@@ -27,23 +28,29 @@ public interface RecipeListMapper {
 
     RecipeCardResponseV1 map(RecipeCardDto recipeCardDto);
 
-    // Промежуточный DTO теперь тоже хранит метаданные пагинации
     default RecipeListDto map(Page<Recipe> page) {
         List<RecipeCardDto> mapped = page.getContent()
                 .stream()
                 .map(this::map)
                 .toList();
-        return new RecipeListDto(
-                mapped,
+        PageDataDto pageData = new PageDataDto(
                 page.getNumber(),
                 page.getSize(),
                 page.getTotalElements(),
                 page.getTotalPages(),
                 page.isLast()
         );
+        return new RecipeListDto(mapped, pageData);
     }
 
-    // MapStruct сам замапит поля по именам (recipes, page, size, ...)
-    RecipeListResponseV1 map(RecipeListDto recipeListDto);
-
+    default RecipeListResponseV1 map(RecipeListDto dto) {
+        return new RecipeListResponseV1(
+                dto.pageData().page(),
+                dto.pageData().size(),
+                dto.pageData().totalElements(),
+                dto.pageData().totalPages(),
+                dto.pageData().last(),
+                dto.recipes().stream().map(this::map).toList()
+        );
+    }
 }

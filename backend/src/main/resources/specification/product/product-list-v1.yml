@@ -22,13 +22,15 @@ paths:
 components:
   schemas:
     ProductListResponseV1:
-      type: object
-      required: [products]
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductCardResponseV1'
+      allOf:
+        - $ref: '../pagination/pagination.yml#/PageMetadata'
+        - type: object
+          required: [products]
+          properties:
+            products:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCardResponseV1'
     ProductCardResponseV1:
       type: object
       required: [id, title]
