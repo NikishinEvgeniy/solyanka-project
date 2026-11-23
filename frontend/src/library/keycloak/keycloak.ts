@@ -18,12 +18,12 @@ keycloak.init = async (options) => {
     notice.setAttribute('role', 'status')
     notice.textContent = 'Аккаунт успешно зарегистрирован'
     Object.assign(notice.style, {
-      position: 'fixed', top: '16px', right: '16px', zIndex: '1000',
+      position: 'fixed', top: '100px', right: '16px', zIndex: '1000',
       padding: '16px 24px', background: '#fff', color: '#493629',
       border: '2px solid #9ab66e', borderRadius: '16px', maxWidth: '90vw',
     })
     document.body.append(notice)
-    window.setTimeout(() => notice.remove(), 8000)
+    window.setTimeout(() => notice.remove(), 4000)
   }
   return authenticated
 }
