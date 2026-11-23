@@ -12,6 +12,10 @@ import java.util.List;
  * @since 11/11/26
  */
 public record RecipeListDto(
-        List<RecipeCardDto> recipes
-) {
-}
+        List<RecipeCardDto> recipes,
+        int page,
+        int size,
+        long totalElements,
+        int totalPages,
+        boolean last
+) {}
