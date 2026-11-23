@@ -5,6 +5,7 @@ import RecipesListPage from './feature/recipesList/RecipesListPage'
 import RecipeCreatePage from './feature/recipe-create/RecipeCreatePage'
 import RecipeEditPage from './feature/recipe-edit/RecipeEditPage'
 import TestModalPage from './feature/productsList/TestModalPage'
+import ProfilePage from './feature/profile/ProfilePage'
 function App() {
   return (
       <Routes>
@@ -15,7 +16,7 @@ function App() {
         <Route path="/recipes/:id" element={<RecipePage />} />
         <Route path="/my-recipes" element={<div>Мои рецепты</div>} />
         <Route path="/favorites" element={<div>Избранное</div>} />
-        <Route path="/profile" element={<div>Профиль</div>} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/products" element={<TestModalPage/>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
