@@ -121,20 +121,6 @@
   cursor: pointer;
 }
 
-@media (max-width: 700px) {
-  .recipes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); }
-  .catalog-main { padding-inline: 14px; }
-  .recipes-page .site-footer { min-height: 0; padding-block: 6px; }
-  .catalog-error-band { padding-inline: 14px; background-size: 96% auto; }
-}
-
-@media (max-height: 700px) {
-  .recipes-page .site-header { height: auto; min-height: 0; padding-block: 4px; }
-  .recipes-page .brand, .recipes-page .brand img { height: 38px; width: 140px; }
-  .recipes-page .site-footer { min-height: 0; padding-block: 4px; }
-  .recipes-page .footer-apple { width: 45px; height: 45px; }
-  .recipes-page .pagination { padding-block: 0; }
-}
 .card-favorite-btn {
   padding: 4px;
   border: none;
@@ -191,4 +177,28 @@
 .recipes-page .pagination-ellipsis {
   padding: 0 4px;
   user-select: none;
+}
+
+@media (max-width: 980px), (max-height: 720px) {
+  .recipes-page { min-height: 100vh; display: flex; flex-direction: column; }
+  .catalog-viewport { flex: 1; height: auto; grid-template-rows: auto 1fr; }
+  .catalog-main { grid-template-rows: auto 1fr auto; }
+  .recipes-grid { align-content: start; grid-template-rows: none; }
+  .recipe-card-list--skeleton { aspect-ratio: 4 / 3; }
+  .recipe-image-wrapper { flex: none; aspect-ratio: 4 / 3; }
+  .recipe-card-list-title { white-space: normal; overflow-wrap: anywhere; }
+  .catalog-error-band { height: auto; min-height: 60%; padding: 24px var(--page-padding); background-size: 96% auto; }
+}
+
+@media (max-width: 760px) {
+  .recipes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .catalog-header { flex-wrap: wrap; }
+  .recipes-page .pagination { flex-wrap: wrap; }
+  .recipes-page .pagination-item { min-width: 40px; min-height: 40px; }
+}
+
+@media (max-width: 440px) {
+  .recipes-grid { grid-template-columns: minmax(0, 1fr); }
+  .catalog-error-band { flex-direction: column; text-align: center; }
+  .catalog-error-band img { max-height: none; }
 }

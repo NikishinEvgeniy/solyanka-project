@@ -110,6 +110,9 @@
 }
 
 @media (max-width: 600px) {
+  .profile-main { padding-block: 24px 40px; }
+  .profile-main h1 { margin-bottom: 20px; }
+  .profile-layout { gap: 16px; }
   .profile-details dl { grid-template-columns: 1fr; }
-  .profile-panel { padding: 20px; }
+  .profile-panel { padding: 16px; }
 }

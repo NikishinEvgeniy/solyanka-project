@@ -27,6 +27,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px; /* Расстояние между верхней частью и описанием */
+  overflow-wrap: anywhere;
 }
 
 .recipe-missing-main {
@@ -65,10 +66,11 @@
   color: #FFFFFF;
 }
 
+.btn-actions { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+
 .btn-delete {
   background-color: #D56B4D; /* Терракотовый */
   color: #FFFFFF;
-  margin-left: 16px;
 }
 
 /* --- БЕЛЫЕ КАРТОЧКИ (ОБЩИЙ СТИЛЬ) --- */
@@ -108,6 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   border-bottom: 1px solid #EAEAEA;
   padding-bottom: 16px;
   margin-bottom: 20px;
@@ -152,6 +155,7 @@
 .ingredients-list li {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   font-size: 16px;
   border-bottom: 1px dashed #EAEAEA;
   padding-bottom: 8px;
@@ -191,4 +195,17 @@
   .recipe-main-info {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+@media (max-width: 980px), (max-height: 720px) {
+  .recipe-missing-main { display: grid; place-items: center; padding: 24px var(--page-padding); }
+}
+
+@media (max-width: 600px) {
+  .recipe-main { padding: 24px var(--page-padding); gap: 18px; }
+  .recipe-main-info, .description-section { padding: 16px; }
+  .recipe-main-info { gap: 16px; }
+  .ingredients-section { padding: 12px; }
+  .recipe-title { font-size: clamp(22px, 5vw, 30px); }
+  .btn { padding-inline: 14px; min-height: 44px; }
 }

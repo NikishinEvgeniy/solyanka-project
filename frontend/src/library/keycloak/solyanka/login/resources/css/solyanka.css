@@ -254,12 +254,20 @@ input#kc-login:active { transform: scale(.98); }
 .alert-error .pficon, .alert-danger .pficon { display: none; }
 
 /* ---------- Телефон ---------- */
+@media (max-width: 980px), (max-height: 720px) {
+    :root { --u: max(0.9px, min(0.069444vw, 0.09766vh)); }
+    .login-pf-page, .login-pf-page .card-pf { box-sizing: border-box; }
+}
+
 @media (max-width: 700px) {
     :root { --u: 1px; --pad: 24px; }
     html.login-pf body, body.login-pf { background-position: center bottom; background-size: auto 70vh; }
     html.login-pf body::before, body.login-pf::before { left: -14vw; top: 2vh; width: 60vw; height: 66.7vw; }
     html.login-pf body::after,  body.login-pf::after  { left: auto; right: -6vw; top: auto; bottom: -3vh; width: 42vw; height: 46.7vw; }
+    .login-pf-page { padding: 20px 12px !important; }
+    .login-pf-page .card-pf { border-radius: 24px; }
     .login-pf-page::before { width: 100vw; height: 90px; }
+    #kc-form-login input#username, #kc-form-login input#password { height: 44px; }
 }
 
 /* Registration uses the existing Keycloak theme and shared background assets. */
@@ -288,7 +296,5 @@ body:has(#kc-register-form) .card-pf { box-sizing: border-box; width: min(calc(5
 /* Decorative petals must stay behind both cards. */
 .login-pf-page .card-pf { position: relative; z-index: 1; }
 @media (max-width: 700px) {
-    body:has(#kc-register-form) .login-pf-page { padding: 20px 12px !important; }
-    body:has(#kc-register-form) .card-pf { border-radius: 24px; }
     .registration-field input { height: 44px; }
 }

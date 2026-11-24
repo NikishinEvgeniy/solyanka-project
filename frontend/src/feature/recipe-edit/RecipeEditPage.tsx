@@ -14,7 +14,7 @@ export default function RecipeEditPage() {
 function LoadedEditor({ id }: { id: string }) {
   const { data, isLoading, isError, error, refetch } = useRecipe(id)
   if (isLoading) return <p role="status">Загрузка рецепта…</p>
-  if (isError) return <main><p role="alert">{error.message}</p><button onClick={() => void refetch()}>Повторить</button></main>
+  if (isError) return <main><p className="recipe-editor-error" role="alert">{error.message}</p><button onClick={() => void refetch()}>Повторить</button></main>
   if (!data) return <p role="alert">Рецепт не найден</p>
   return <RecipeForm recipe={data} onSave={(token, title, description, image, ingredients) =>
     editRecipe(token, id, title, description, ingredients, image)} />
