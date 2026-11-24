@@ -24,10 +24,12 @@ export async function editRecipe(
   title: string,
   description: string,
   ingredients?: IngredientPayload[],
+  image?: File,
 ): Promise<RecipeData> {
   const body = new FormData()
   body.append('title', title.trim())
   body.append('description', description.trim())
+  if (image) body.append('image', image)
   if (ingredients) body.append('ingredients', JSON.stringify(ingredients))
   const response = await fetch(`${recipeApiBase}/api/v1/recipes/${encodeURIComponent(id)}`, {
     method: 'PUT',
