@@ -1,10 +1,14 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.service;
 
 import lombok.RequiredArgsConstructor;
+import moex.com.tp_ivt_team4_2026.library.paging.model.PageDataDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper.RecipeListMapper;
+import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeCardDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.repository.RecipeListRepository;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +30,8 @@ public class RecipeListServiceImpl implements RecipeListService {
     private final RecipeListRepository recipeListRepository;
 
     @Override
-    public RecipeListDto handle() {
-        List<Recipe> recipes = recipeListRepository.findAll();
-        return recipeListMapper.map(recipes);
+    public RecipeListDto handle(Pageable pageable) {
+        Page<Recipe> page = recipeListRepository.findAll(pageable);
+        return recipeListMapper.map(page);
     }
 }

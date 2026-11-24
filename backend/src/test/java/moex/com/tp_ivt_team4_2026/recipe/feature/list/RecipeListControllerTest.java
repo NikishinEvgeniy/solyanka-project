@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/mock-recipes.sql")
+
 @DisplayName("Проверка работоспособности домена [Recipes]")
 class RecipeListControllerTest extends AbstractIntegrationTest {
 
@@ -27,13 +27,19 @@ class RecipeListControllerTest extends AbstractIntegrationTest {
     @DisplayName("Функционал GET [/api/v1/recipes] успешно возвращает список рецептов")
     void shouldReturnRecipeCardsWhenIncomingRequestIsApiRecipesGet() {
         // Arrange (migration)
-        final int RECIPES_COUNT_IN_DATABASE = 10;
-
+        final int RECIPES_COUNT_IN_DATABASE = 5;
+        final int PAGE = 0;
+        final int LIMIT = 4;
         // Act && Assert
-        mockMvc.perform(get("/api/v1/recipes").with(jwt()))
+        mockMvc.perform(get("/api/v1/recipes?page={page}&limit={limit}", PAGE, LIMIT).with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.recipes").isArray())
-                .andExpect(jsonPath("$.recipes.length()").value(RECIPES_COUNT_IN_DATABASE));
+                .andExpect(jsonPath("$.recipes.length()").value(LIMIT))
+                .andExpect(jsonPath("$.page").exists())
+                .andExpect(jsonPath("$.size").exists())
+                .andExpect(jsonPath("$.totalElements").value(RECIPES_COUNT_IN_DATABASE))
+                .andExpect(jsonPath("$.totalPages").exists())
+                .andExpect(jsonPath("$.last").exists());
     }
 }

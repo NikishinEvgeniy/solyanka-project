@@ -8,6 +8,21 @@ paths:
       tags: [recipe-list]
       operationId: getRecipes
       summary: Получение списка рецептов
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
       responses:
         '200':
           description: Успешное получение списка рецептов
@@ -20,13 +35,15 @@ paths:
 components:
   schemas:
     RecipeListResponseV1:
-      type: object
-      required: [recipes]
-      properties:
-        recipes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecipeCardResponseV1'
+      allOf:
+        - $ref: '../pagination/pagination.yml#/PageMetadata'
+        - type: object
+          required: [ recipes ]
+          properties:
+            recipes:
+              type: array
+              items:
+                $ref: '#/components/schemas/RecipeCardResponseV1'
     RecipeCardResponseV1:
       type: object
       required: [id, title]

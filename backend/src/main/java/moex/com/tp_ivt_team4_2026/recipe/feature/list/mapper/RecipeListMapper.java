@@ -1,12 +1,16 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper;
 
 import moex.com.tp_ivt_team4_2026.library.mapstruct.MapperConfiguration;
+import moex.com.tp_ivt_team4_2026.library.paging.model.PageDataDto;
+import moex.com.tp_ivt_team4_2026.model.RecipeCardResponseV1;
 import moex.com.tp_ivt_team4_2026.model.RecipeListResponseV1;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeCardDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
 import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -21,18 +25,33 @@ import java.util.List;
  */
 @Mapper(config = MapperConfiguration.class)
 public interface RecipeListMapper {
+
     RecipeCardDto map(Recipe recipe);
 
-    default RecipeListDto map(List<Recipe> recipes) {
-        if (CollectionUtils.isEmpty(recipes)) {
-            return new RecipeListDto(List.of());
-        }
-        List<RecipeCardDto> mapped = recipes
+    RecipeCardResponseV1 map(RecipeCardDto recipeCardDto);
+
+    @Mapping(target = "page",          source = "pageData.page")
+    @Mapping(target = "size",          source = "pageData.size")
+    @Mapping(target = "totalElements", source = "pageData.totalElements")
+    @Mapping(target = "totalPages",    source = "pageData.totalPages")
+    @Mapping(target = "last",          source = "pageData.last")
+    RecipeListResponseV1 map(RecipeListDto dto);
+
+    default RecipeListDto map(Page<Recipe> recipes){
+        List<RecipeCardDto> mapped = recipes.getContent()
                 .stream()
                 .map(this::map)
                 .toList();
-        return new RecipeListDto(mapped);
+        PageDataDto pageDataDto = mapPageData(recipes);
+        return new RecipeListDto(mapped, pageDataDto);
     }
 
-    RecipeListResponseV1 map(RecipeListDto recipeListDto);
+    default PageDataDto mapPageData(Page<?> page){
+        return new PageDataDto(
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
+    }
 }

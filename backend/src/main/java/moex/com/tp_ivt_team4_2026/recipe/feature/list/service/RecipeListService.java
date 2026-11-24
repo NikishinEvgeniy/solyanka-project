@@ -1,6 +1,7 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.service;
 
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
+import org.springframework.data.domain.Pageable;
 
 /**
  * <center><b>Интерфейс сервис</b></center>
@@ -12,5 +13,5 @@ import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
  * @since 11/11/26
  */
 public interface RecipeListService {
-    RecipeListDto handle();
+    RecipeListDto handle(Pageable pageable);
 }

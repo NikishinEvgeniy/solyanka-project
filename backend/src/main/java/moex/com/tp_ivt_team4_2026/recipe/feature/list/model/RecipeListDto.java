@@ -1,5 +1,7 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.model;
 
+import moex.com.tp_ivt_team4_2026.library.paging.model.PageDataDto;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,6 @@ import java.util.List;
  * @since 11/11/26
  */
 public record RecipeListDto(
-        List<RecipeCardDto> recipes
-) {
-}
+        List<RecipeCardDto> recipes,
+        PageDataDto pageData
+) {}
