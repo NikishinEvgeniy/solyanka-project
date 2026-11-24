@@ -13,14 +13,18 @@
 .modal-dialog {
   background-color: #ffffff;
   border-radius: 8px;
-  width: 100%;
-  max-width: 500px;
-  padding: 24px;
+  width: min(540px, calc(100% - 24px));
+  padding: clamp(12px, 3vw, 24px);
+  max-height: calc(100dvh - 24px);
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   border: 2px solid #6e5542; /* Коричневая рамка как на скрине */
 }
 
 .product-modal-content {
+  --product-row-height: 46px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -76,16 +80,24 @@
 }
 
 /* Список */
+.product-modal-content .modal-body {
+  min-height: 0;
+  height: calc(6 * var(--product-row-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .products-options-list {
   display: flex;
   flex-direction: column;
 }
 
 .product-option {
+  min-height: var(--product-row-height);
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 8px 16px;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s;
@@ -129,43 +141,11 @@
 }
 
 .product-title {
+  overflow-wrap: anywhere;
   font-family: 'Piazzolla', Georgia, serif;
   font-size: 18px;
   color: #2f251f;
   font-weight: 600;
-}
-
-/* Пагинация */
-.modal-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-family: 'Brygada 1918', Georgia, serif;
-  font-size: 16px;
-  color: #2f251f;
-  margin-top: 10px;
-}
-
-.pagination-item {
-  min-width: 28px;
-  height: 28px;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-}
-
-.pagination-item.is-active {
-  border: 1px solid #2f251f;
-  font-weight: 700;
-}
-
-.pagination-ellipsis {
-  padding: 0 4px;
 }
 
 /* Вспомогательные тексты */
