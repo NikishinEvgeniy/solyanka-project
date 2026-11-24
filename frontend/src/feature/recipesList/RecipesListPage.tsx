@@ -6,8 +6,10 @@ import Footer from '../footer/Footer';
 export const RecipesListPage = () => {
   return (
     <div className="recipes-page">
-     <Header/>
-      <RecipesListPageContent />
+      <div className="catalog-viewport">
+        <Header />
+        <RecipesListPageContent />
+      </div>
       <Footer />
     </div>
   );

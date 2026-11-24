@@ -23,6 +23,12 @@
   gap: 30px; /* Расстояние между верхней частью и описанием */
 }
 
+.recipe-missing-main {
+  position: relative;
+  flex: 1;
+  min-height: 180px;
+}
+
 /* --- ВЕРХНИЕ КНОПКИ (НАЗАД / РЕДАКТИРОВАТЬ / УДАЛИТЬ) --- */
 .top-actions {
   display: flex;

@@ -1,0 +1,16 @@
+.recipes-not-found {
+  position: absolute;
+  inset: 46% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(680px, 36%, calc(100% - 32px));
+  padding: clamp(24px, 5.6vh, 70px) 16px;
+  border-radius: 8px;
+  background: #e9dec3;
+  color: #222824;
+  text-align: center;
+  font: 600 clamp(22px, 2.1vw, 40px)/1.15 'Piazzolla', Georgia, serif;
+}
+
+@media (max-width: 700px) {
+  .recipes-not-found { width: min(80%, 420px); }
+}

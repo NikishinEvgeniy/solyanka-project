@@ -2,13 +2,14 @@ import RecipeActions from '../card/RecipeActions.tsx';
 import RecipeCard from '../card/RecipeCard.tsx';
 import RecipeDescription from '../card/RecipeDescription.tsx';
 import { useRecipe } from '../hooks/useRecipe';
+import RecipesNotFound from '../RecipesNotFound';
 
 type Props = { id?: string };
 
 const RecipePageContent = ({ id }: Props) => {
-    const { data: recipe, isLoading, isError, error } = useRecipe(id);
+    const { data: recipe, isPending, isError, error } = useRecipe(id);
 
-    if (isLoading) return <main className="recipe-main">Загрузка...</main>;
+    if (isPending) return <main className="recipe-main">Загрузка...</main>;
 
     if (isError) {
         const message = error instanceof Error ? error.message : 'Неизвестная ошибка';
@@ -19,7 +20,7 @@ const RecipePageContent = ({ id }: Props) => {
         );
     }
 
-    if (!recipe) return <main className="recipe-main">Рецепт не найден</main>;
+    if (!recipe) return <main className="recipe-missing-main"><RecipesNotFound /></main>;
 
     return (
         <main className="recipe-main">
