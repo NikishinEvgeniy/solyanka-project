@@ -80,7 +80,6 @@
 }
 .recipe-card-list-title a:hover { text-decoration: underline; }
 .recipe-image-wrapper { flex: 1; min-height: 0; background: white; }
-.recipe-image { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .recipes-page .pagination {
   display: flex;
