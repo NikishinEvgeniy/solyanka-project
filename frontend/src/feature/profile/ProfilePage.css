@@ -1,0 +1,115 @@
+@import '@fontsource/piazzolla/cyrillic-600.css';
+@import '@fontsource/piazzolla/latin-600.css';
+
+.profile-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #222824;
+  background: #f3ebda;
+}
+
+.profile-page .site-header,
+.profile-page .site-footer,
+.profile-panel {
+  background-color: #e5d9bc;
+}
+
+.profile-page .site-footer { margin-top: 0; }
+
+.profile-main {
+  flex: 1;
+  padding: 32px var(--page-padding) 64px;
+  background-image: url('../../assets/images/background-left.svg'), url('../../assets/images/background-right.svg');
+  background-position: left bottom, right top;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.profile-main h1,
+.profile-main h2,
+.profile-details dt,
+.profile-initials {
+  margin: 0;
+  font-family: 'Piazzolla', Georgia, serif;
+  font-weight: 600;
+}
+
+.profile-main h1 {
+  margin-bottom: 30px;
+  font-size: clamp(30px, 2.5vw, 40px);
+  line-height: 1.15;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.profile-panel {
+  min-width: 0;
+  padding: 28px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.profile-avatar,
+.profile-initials {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  background: white;
+  border-radius: 8px;
+  color: var(--brown);
+  font-size: 26px;
+}
+
+.profile-avatar { display: block; object-fit: cover; }
+.profile-photo-error { margin: 8px 0 0; color: #a52018; font-size: 15px; }
+
+.profile-summary h2 { margin-top: 24px; font-size: 24px; }
+.profile-summary p { margin: 20px 0 0; color: #605e51; font-size: 14px; }
+.profile-member-since { padding-top: 20px; border-top: 1px solid var(--brown); }
+.profile-details h2 { font-size: 22px; }
+
+.profile-details dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 22px 0 0;
+}
+
+.profile-details dt { font-size: 14px; }
+.profile-details dd {
+  margin: 8px 0 0;
+  padding: 14px;
+  border: 1px solid #dfe3df;
+  border-radius: 6px;
+  background: white;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.profile-save {
+  font: 600 14px/1.4 'Piazzolla', Georgia, serif;
+  border: 1px solid;
+  border-radius: 6px;
+  cursor: not-allowed;
+  margin-top: 20px;
+  padding: 13px 20px;
+  border-color: var(--brown);
+  background: var(--brown);
+  color: white;
+}
+
+@media (max-width: 900px) {
+  .profile-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .profile-details dl { grid-template-columns: 1fr; }
+  .profile-panel { padding: 20px; }
+}
