@@ -6,6 +6,7 @@ paths:
   /api/v1/recipes/{id}/ingredients:
     post:
       tags: [ingredient-add]
+      operationId: addIngredient
       summary: Добавление ингредиента
       parameters:
         - name: id
@@ -15,12 +16,24 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/AddIngredientRequestV1'
+        - name: product_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: unit
+          in: query
+          required: true
+          schema:
+            type: string
+            maxLength: 50
       responses:
         '201':
           description: Успешное добавление ингредиента
@@ -36,26 +49,6 @@ paths:
           $ref: '../responses/internal-server-error-v1.yml'
 components:
   schemas:
-    AddIngredientRequestV1:
-      type: object
-      required: [product_id, amount, unit]
-      properties:
-        product_id:
-          type: integer
-          format: int64
-        amount:
-          type: number
-          format: double
-          minimum: 0
-          exclusiveMinimum: true
-        unit:
-          type: string
-          maxLength: 50
-        image:
-          type: string
-          format: binary
-          nullable: true
-          description: Файл изображения
     AddIngredientResponseV1:
       type: object
       required: [message]

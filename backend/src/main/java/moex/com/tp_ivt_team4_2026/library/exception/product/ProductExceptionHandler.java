@@ -1,0 +1,18 @@
+package moex.com.tp_ivt_team4_2026.library.exception.product;
+
+import moex.com.tp_ivt_team4_2026.model.ErrorResponseV1;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class ProductExceptionHandler {
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponseV1> handleRecipeNotFound(ProductNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorResponseV1(e.getMessage()));
+    }
+}
