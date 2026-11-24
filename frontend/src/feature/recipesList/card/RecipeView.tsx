@@ -1,6 +1,7 @@
 // recipesList/card/RecipeView.tsx
 import { Link } from 'react-router-dom'
 import type { Recipe } from '../model/Recipe'
+import RecipeImage from '../../recipe/card/RecipeImage'
 
 type RecipeViewProps = {
   recipe: Recipe
@@ -27,15 +28,8 @@ export function RecipeView({ recipe, isFavorite, onToggleFavorite }: RecipeViewP
           </svg>
         </button>
       </div>
-      <Link to={`/recipes/${recipe.id}`} className="recipe-image-wrapper">
-        {recipe.imageUrl && (
-          <img
-            className="recipe-image"
-            src={recipe.imageUrl}
-            alt={recipe.title}
-            loading="lazy"
-          />
-        )}
+      <Link to={`/recipes/${recipe.id}`} className="recipe-image-wrapper" aria-label={recipe.title}>
+        <RecipeImage src={recipe.imageUrl} title={recipe.title} lazy />
       </Link>
     </article>
   )

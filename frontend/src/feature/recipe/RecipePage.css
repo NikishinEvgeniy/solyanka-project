@@ -3,20 +3,26 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* Фон с ромбиками (замени URL на свою картинку, если есть) */
-  background-color: #EBE4D5;
-  background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L40 20L20 40L0 20L20 0Z" fill="%23DCD2BD" fill-opacity="0.3"/></svg>');
-  background-size: 60px 60px;
+  background-color: #f3ebda;
   font-family: 'Piazzolla', serif;
   color: #2B1E16;
 }
 
+.recipe-main,
+.recipe-missing-main {
+  background-image: url('../../assets/images/background-left.svg'), url('../../assets/images/background-right.svg');
+  background-position: left bottom, right top;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+
+.recipe-page-wrapper .site-footer { margin-top: 0; }
+
 .recipe-main {
   flex: 1;
-  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px max(20px, calc((100% - 1160px) / 2));
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -32,6 +38,8 @@
 /* --- ВЕРХНИЕ КНОПКИ (НАЗАД / РЕДАКТИРОВАТЬ / УДАЛИТЬ) --- */
 .top-actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -73,22 +81,22 @@
 
 /* --- ВЕРХНИЙ БЛОК (КАРТИНКА + ИНФО) --- */
 .recipe-main-info {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   padding: 32px;
 }
 
-/* Плейсхолдер вместо картинки */
-.image-placeholder {
-  flex: 1; /* Занимает половину */
-  background-color: #DFDCD1; /* Серый цвет как на макете */
+.recipe-detail-image {
+  align-self: start;
+  width: 100%;
+  overflow: hidden;
   border-radius: 12px;
   aspect-ratio: 4 / 3; /* Пропорции картинки */
 }
 
 .ingredients-section {
-  flex: 1; /* Вторая половина */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   border: 1px solid #EAEAEA;
@@ -106,6 +114,7 @@
 }
 
 .recipe-title {
+  overflow-wrap: anywhere;
   font-family: 'Brygada 1918', serif;
   font-size: 32px;
   font-weight: 700;
@@ -169,6 +178,8 @@
 }
 
 .description-text {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
   font-size: 16px;
   line-height: 1.6;
   color: #4A3A2F;
@@ -178,6 +189,6 @@
 /* --- АДАПТИВ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ --- */
 @media (max-width: 800px) {
   .recipe-main-info {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
