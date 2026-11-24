@@ -1,9 +1,10 @@
 // recipesList/page/RecipesListPageContent.tsx
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecipes } from '../hooks/useRecipes'
 import { RecipesList } from '../card/RecipesList'
-import tomatoImg from '../../../assets/images/error-tomato.svg'
+import RecipesNotFound from '../../recipe/RecipesNotFound'
+import tomatoImage from '../../../assets/images/error-leaves.svg'
 import '../RecipesListPage.css'
 
 const PAGE_SIZE = 6
@@ -11,14 +12,10 @@ const PAGE_SIZE = 6
 export function RecipesListPageContent() {
   const { data: allRecipes, isLoading, isError, refetch } = useRecipes()
 
-  const [page, setPage] = useState(1)
-  const [favorites, setFavorites] = useState<Set<number>>(new Set()) // Изменено на number
+  const [selectedPage, setPage] = useState(1)
+  const [favorites, setFavorites] = useState<Set<number>>(new Set())
 
-  useEffect(() => {
-    setPage(1)
-  }, [allRecipes])
-
-  const toggleFavorite = (id: number) => { // Изменено на number
+  const toggleFavorite = (id: number) => {
     setFavorites((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
@@ -31,6 +28,7 @@ export function RecipesListPageContent() {
   const totalItems = allRecipes?.length ?? 0
   const totalPages = Math.ceil(totalItems / PAGE_SIZE)
 
+  const page = Math.min(selectedPage, totalPages || 1)
   const startIndex = (page - 1) * PAGE_SIZE
   const currentRecipes = allRecipes?.slice(startIndex, startIndex + PAGE_SIZE) ?? []
 
@@ -50,73 +48,63 @@ export function RecipesListPageContent() {
     return result
   }
 
-  return (
-    <div className="recipes-page">
-      <main className="catalog-main">
-        <div className="catalog-header">
-          <h1 className="catalog-title">Каталог рецептов</h1>
-          <Link className="add-recipe-btn" to="/recipes/new">
-            Добавить
-          </Link>
-        </div>
-
-        {isError && (
-          <div className="error-state" role="alert">
-            <div className="error-content">
-              <img src={tomatoImg} alt="Ошибка" className="error-tomato" />
-              <div className="error-text">
-                <h2>Что-то пошло не так</h2>
-                <p>
-                  Попробуйте пока что приготовить
-                  <br />
-                  хотя-бы бутерброд
-                </p>
-                <button onClick={() => refetch()} style={{ marginTop: '10px', cursor: 'pointer' }}>
-                  Попробовать снова
-                </button>
-              </div>
-            </div>
+  if (isError) {
+    return (
+      <main className="catalog-error" aria-label="Каталог рецептов">
+        <section className="catalog-error-band" role="alert">
+          <img src={tomatoImage} alt="" />
+          <div>
+            <h1>Что-то пошло не так</h1>
+            <p>Попробуйте пока что приготовить<br />хотя-бы бутерброд</p>
+            <button type="button" onClick={() => void refetch()}>Попробовать снова</button>
           </div>
-        )}
-
-        {isEmpty && (
-          <div className="status-banner status-empty" role="status">
-            Рецепты не найдены
-          </div>
-        )}
-
-        {showGrid && (
-          <RecipesList
-            recipes={currentRecipes}
-            favorites={favorites}
-            onToggleFavorite={toggleFavorite}
-            isLoading={isLoadingFirst}
-            skeletonCount={PAGE_SIZE}
-          />
-        )}
-
-        {totalPages > 1 && (
-          <nav className="pagination" aria-label="Навигация по страницам">
-            {buildPageList(page, totalPages).map((item, idx) =>
-              item === '…' ? (
-                <span key={`e-${idx}`} className="pagination-ellipsis">
-                  …
-                </span>
-              ) : (
-                <button
-                  key={item}
-                  type="button"
-                  className={`pagination-item${item === page ? ' is-active' : ''}`}
-                  onClick={() => setPage(item)}
-                  aria-current={item === page ? 'page' : undefined}
-                >
-                  {item}
-                </button>
-              ),
-            )}
-          </nav>
-        )}
+        </section>
       </main>
-    </div>
+    )
+  }
+
+  return (
+    <main className="catalog-main">
+      <div className="catalog-header">
+        <h1 className="catalog-title">Каталог рецептов</h1>
+        <Link className="add-recipe-btn" to="/recipes/new">
+          Добавить
+        </Link>
+      </div>
+
+      {isEmpty && <RecipesNotFound />}
+
+      {showGrid && (
+        <RecipesList
+          recipes={currentRecipes}
+          favorites={favorites}
+          onToggleFavorite={toggleFavorite}
+          isLoading={isLoadingFirst}
+          skeletonCount={PAGE_SIZE}
+        />
+      )}
+
+      {totalPages > 1 && (
+        <nav className="pagination" aria-label="Навигация по страницам">
+          {buildPageList(page, totalPages).map((item, idx) =>
+            item === '…' ? (
+              <span key={`e-${idx}`} className="pagination-ellipsis">
+                …
+              </span>
+            ) : (
+              <button
+                key={item}
+                type="button"
+                className={`pagination-item${item === page ? ' is-active' : ''}`}
+                onClick={() => setPage(item)}
+                aria-current={item === page ? 'page' : undefined}
+              >
+                {item}
+              </button>
+            ),
+          )}
+        </nav>
+      )}
+    </main>
   )
 }

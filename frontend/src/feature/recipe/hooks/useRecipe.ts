@@ -29,6 +29,7 @@ export const useRecipe = (id?: string) => {
                 signal,
                 headers: { Authorization: `Bearer ${token}` },
             });
+            if (response.status === 404) return null;
             if (!response.ok) {
                 throw new Error(await extractErrorMessage(response));
             }
