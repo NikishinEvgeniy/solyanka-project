@@ -20,9 +20,9 @@ public interface IngredientAdditionalMapper {
     IngredientAdditionalResponseDto map(String message);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "recipe", source = "recipe")
-    @Mapping(target = "product", source = "product")
-    Ingredient map(IngredientAdditionalRequestDto dto, Recipe recipe, Product product);
+    @Mapping(target = "recipeId", source = "recipeId")
+    @Mapping(target = "productId", source = "productId")
+    Ingredient map(IngredientAdditionalRequestDto dto);
 
     @Mapping(target = "message", source = "message")
     AddIngredientResponseV1 map(IngredientAdditionalResponseDto dto);

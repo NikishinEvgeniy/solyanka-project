@@ -34,13 +34,11 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
+    private Long recipeId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private Long productId;
 
     @Column(nullable = false, precision = 10, scale = 5)
     private BigDecimal amount;
