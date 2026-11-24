@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useKeycloak } from '@react-keycloak/web';
+import { recipeApiBase } from '../../../library/api/recipeApiBase';
 
 type ServerProduct = {
   id: number;
@@ -31,7 +32,7 @@ export const useProducts = () => {
       const token = keycloak.token;
       if (!token) throw new Error('No token');
 
-      const response = await fetch(`http://localhost:8080/api/v1/products`, {
+      const response = await fetch(`${recipeApiBase}/api/v1/products`, {
         signal,
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -1,0 +1,140 @@
+/*
+ * Самодостаточные стили формы ингредиентов: не зависят от классов страницы.
+ * Внешний вид можно подстроить переменными на родителе или через className.
+ */
+.ingf {
+  --ingf-bg: #e5d9b9;
+  --ingf-text: #272e29;
+  --ingf-accent: #493629;
+  --ingf-danger: #b9593a;
+  --ingf-error: #a52018;
+  --ingf-columns: minmax(0, 1fr) 170px 170px 38px;
+  --ingf-heading-font: 'Brygada 1918', Georgia, serif;
+
+  min-width: 0;
+  margin: 0;
+  padding: 28px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--ingf-bg);
+  box-shadow: 0 12px 6px -5px #49362955;
+  color: var(--ingf-text);
+  font-family: 'Piazzolla', Georgia, serif;
+}
+
+.ingf__title {
+  margin: 4px 0 24px;
+  font-family: var(--ingf-heading-font);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.ingf__head,
+.ingf__row {
+  display: grid;
+  grid-template-columns: var(--ingf-columns);
+  column-gap: 16px;
+  align-items: start;
+}
+.ingf__head {
+  margin-bottom: 10px;
+  font-family: var(--ingf-heading-font);
+  font-size: 18px;
+  font-weight: 700;
+}
+.ingf__rows { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.ingf__cell { min-width: 0; }
+
+/* Подписи полей: на десктопе скрыты визуально (их заменяет шапка), но доступны скринридерам */
+.ingf__label {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+.ingf .ingf__picker,
+.ingf .ingf__field {
+  display: block;
+  width: 100%;
+  height: 38px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid #dfe3df;
+  border-radius: 5px;
+  background: white;
+  color: inherit;
+  font-size: 15px;
+  text-align: left;
+}
+.ingf .ingf__field { font-family: inherit; }
+.ingf .ingf__picker {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--ingf-heading-font);
+  font-weight: 700;
+}
+.ingf .ingf__picker.is-empty { color: #7a7a7a; }
+.ingf select.ingf__field { cursor: pointer; }
+
+.ingf [aria-invalid='true'] { border: 2px solid #b53128; }
+.ingf__error { margin: 6px 0 0; color: var(--ingf-error); font-size: 15px; }
+
+.ingf .ingf__remove {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: var(--ingf-danger);
+  color: white;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.ingf .ingf__remove:hover { background: #9f4a2f; }
+
+.ingf .ingf__add {
+  padding: 13px 20px;
+  border: 1px solid var(--ingf-accent);
+  border-radius: 5px;
+  background: var(--ingf-accent);
+  color: white;
+  font-family: var(--ingf-heading-font);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ingf .ingf__add:hover { background: #5a4435; }
+
+.ingf .ingf__picker:focus-visible,
+.ingf .ingf__field:focus-visible,
+.ingf .ingf__remove:focus-visible,
+.ingf .ingf__add:focus-visible { outline: 2px solid var(--ingf-accent); outline-offset: 2px; }
+
+.ingf:disabled .ingf__add,
+.ingf:disabled .ingf__remove { opacity: .65; cursor: default; }
+
+.ingf__empty { margin: 0 0 8px; color: #626d67; font-size: 16px; }
+.ingf__footer { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
+.ingf__hint { color: var(--ingf-accent); font-size: 14px; }
+
+@media (max-width: 700px) {
+  .ingf { padding: 18px; }
+  .ingf__head { display: none; }
+  .ingf__row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 38px;
+    row-gap: 6px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ingf-accent);
+  }
+  .ingf__row:last-child { padding-bottom: 0; border-bottom: 0; }
+  .ingf__row .ingf__cell:first-child { grid-column: 1 / -1; }
+  .ingf__label {
+    position: static; width: auto; height: auto; margin: 0 0 4px; overflow: visible; clip-path: none; white-space: normal;
+    font-family: var(--ingf-heading-font); font-size: 16px; font-weight: 700;
+  }
+  .ingf__remove { align-self: end; }
+}
