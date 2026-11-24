@@ -1,7 +1,9 @@
 package moex.com.tp_ivt_team4_2026.recipe.feature.list.service;
 
 import lombok.RequiredArgsConstructor;
+import moex.com.tp_ivt_team4_2026.library.paging.model.PageDataDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper.RecipeListMapper;
+import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeCardDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.repository.RecipeListRepository;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
@@ -29,7 +31,20 @@ public class RecipeListServiceImpl implements RecipeListService {
 
     @Override
     public RecipeListDto handle(Pageable pageable) {
-        Page<Recipe> recipes = recipeListRepository.findAll(pageable);
-        return recipeListMapper.map(recipes);
+        Page<Recipe> page = recipeListRepository.findAll(pageable);
+
+        List<RecipeCardDto> recipes = page.getContent().stream()
+                .map(recipeListMapper::map)
+                .toList();
+
+        PageDataDto pageData = new PageDataDto(
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast()
+        );
+
+        return new RecipeListDto(recipes, pageData);
     }
 }

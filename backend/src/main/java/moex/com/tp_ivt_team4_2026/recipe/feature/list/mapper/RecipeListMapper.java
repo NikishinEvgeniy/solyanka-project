@@ -9,6 +9,7 @@ import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
 import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
 import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -24,33 +25,14 @@ import java.util.List;
  */
 @Mapper(config = MapperConfiguration.class)
 public interface RecipeListMapper {
+
     RecipeCardDto map(Recipe recipe);
 
     RecipeCardResponseV1 map(RecipeCardDto recipeCardDto);
-
-    default RecipeListDto map(Page<Recipe> page) {
-        List<RecipeCardDto> mapped = page.getContent()
-                .stream()
-                .map(this::map)
-                .toList();
-        PageDataDto pageData = new PageDataDto(
-                page.getNumber(),
-                page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages(),
-                page.isLast()
-        );
-        return new RecipeListDto(mapped, pageData);
-    }
-
-    default RecipeListResponseV1 map(RecipeListDto dto) {
-        return new RecipeListResponseV1(
-                dto.pageData().page(),
-                dto.pageData().size(),
-                dto.pageData().totalElements(),
-                dto.pageData().totalPages(),
-                dto.pageData().last(),
-                dto.recipes().stream().map(this::map).toList()
-        );
-    }
+    @Mapping(target = "page",          source = "pageData.page")
+    @Mapping(target = "size",          source = "pageData.size")
+    @Mapping(target = "totalElements", source = "pageData.totalElements")
+    @Mapping(target = "totalPages",    source = "pageData.totalPages")
+    @Mapping(target = "last",          source = "pageData.last")
+    RecipeListResponseV1 map(RecipeListDto dto);
 }

@@ -6,6 +6,8 @@ import moex.com.tp_ivt_team4_2026.model.RecipeListResponseV1;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.mapper.RecipeListMapper;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.model.RecipeListDto;
 import moex.com.tp_ivt_team4_2026.recipe.feature.list.service.RecipeListService;
+import moex.com.tp_ivt_team4_2026.recipe.model.Recipe;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
