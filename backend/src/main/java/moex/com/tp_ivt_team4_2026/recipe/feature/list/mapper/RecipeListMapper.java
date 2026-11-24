@@ -29,10 +29,29 @@ public interface RecipeListMapper {
     RecipeCardDto map(Recipe recipe);
 
     RecipeCardResponseV1 map(RecipeCardDto recipeCardDto);
+
     @Mapping(target = "page",          source = "pageData.page")
     @Mapping(target = "size",          source = "pageData.size")
     @Mapping(target = "totalElements", source = "pageData.totalElements")
     @Mapping(target = "totalPages",    source = "pageData.totalPages")
     @Mapping(target = "last",          source = "pageData.last")
     RecipeListResponseV1 map(RecipeListDto dto);
+
+    default RecipeListDto map(Page<Recipe> recipes){
+        List<RecipeCardDto> mapped = recipes.getContent()
+                .stream()
+                .map(this::map)
+                .toList();
+        PageDataDto pageDataDto = mapPageData(recipes);
+        return new RecipeListDto(mapped, pageDataDto);
+    }
+
+    default PageDataDto mapPageData(Page<?> page){
+        return new PageDataDto(
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
+    }
 }

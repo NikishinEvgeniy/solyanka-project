@@ -32,19 +32,6 @@ public class RecipeListServiceImpl implements RecipeListService {
     @Override
     public RecipeListDto handle(Pageable pageable) {
         Page<Recipe> page = recipeListRepository.findAll(pageable);
-
-        List<RecipeCardDto> recipes = page.getContent().stream()
-                .map(recipeListMapper::map)
-                .toList();
-
-        PageDataDto pageData = new PageDataDto(
-                page.getNumber(),
-                page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages(),
-                page.isLast()
-        );
-
-        return new RecipeListDto(recipes, pageData);
+        return recipeListMapper.map(page);
     }
 }
