@@ -1,9 +1,7 @@
-import { useEffect, useState, useMemo } from 'react'
-import { useProducts } from '../hooks/useProducts' // Укажите правильный путь
+import { useRef, useState } from 'react'
+import { useProducts } from '../hooks/useProducts'
 import { ProductsList } from '../card/ProductsList'
 import type { Product } from '../model/Product'
-
-const PAGE_SIZE = 4
 
 type Props = {
   onSelect: (product: Product) => void
@@ -14,28 +12,13 @@ type Props = {
 export function ProductsListPageContent({ onSelect, onClose, selectedId: initialSelectedId }: Props) {
   const { data: allProducts, isLoading, isError } = useProducts()
 
-  const [page, setPage] = useState(1)
+  const listRef = useRef<HTMLDivElement>(null)
   const [search, setSearch] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const selectedId = selectedProduct?.id ?? initialSelectedId
 
-  // Сбрасываем страницу при изменении поиска
-  useEffect(() => {
-    setPage(1)
-  }, [search])
-
-  // Клиентская фильтрация и пагинация
-  const { currentProducts, totalPages } = useMemo(() => {
-    const filtered = allProducts?.filter((p) =>
-      p.title.toLowerCase().includes(search.toLowerCase())
-    ) ?? []
-
-    const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
-    const start = (page - 1) * PAGE_SIZE
-    const currentProducts = filtered.slice(start, start + PAGE_SIZE)
-
-    return { currentProducts, totalPages }
-  }, [allProducts, search, page])
+  const query = search.trim().toLowerCase()
+  const filteredProducts = allProducts?.filter(product => product.title.toLowerCase().includes(query)) ?? []
 
   const handleSelect = (product: Product) => {
     setSelectedProduct(product)
@@ -58,7 +41,10 @@ export function ProductsListPageContent({ onSelect, onClose, selectedId: initial
           type="text"
           placeholder="Введите название продукта..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={event => {
+            setSearch(event.target.value)
+            if (listRef.current) listRef.current.scrollTop = 0
+          }}
           className="search-input"
           aria-label="Поиск продукта"
           autoFocus
@@ -66,54 +52,22 @@ export function ProductsListPageContent({ onSelect, onClose, selectedId: initial
       </div>
 
       {/* Список продуктов */}
-      <div className="modal-body">
+      <div className="modal-body" ref={listRef}>
         {isLoading && <div className="loading-text">Загрузка...</div>}
         {isError && <div className="error-text">Ошибка загрузки</div>}
 
-        {!isLoading && !isError && currentProducts.length === 0 && (
+        {!isLoading && !isError && filteredProducts.length === 0 && (
           <div className="empty-text">Ничего не найдено</div>
         )}
 
-        {!isLoading && !isError && currentProducts.length > 0 && (
+        {!isLoading && !isError && filteredProducts.length > 0 && (
           <ProductsList
-            products={currentProducts}
+            products={filteredProducts}
             selectedId={selectedId}
             onSelect={handleSelect}
           />
         )}
       </div>
-
-      {/* Пагинация */}
-      {totalPages > 1 && (
-        <nav className="modal-pagination" aria-label="Навигация по страницам">
-          {buildPageList(page, totalPages).map((item, idx) =>
-            item === '…' ? (
-              <span key={`e-${idx}`} className="pagination-ellipsis">…</span>
-            ) : (
-              <button
-                key={item}
-                type="button"
-                className={`pagination-item${item === page ? ' is-active' : ''}`}
-                onClick={() => setPage(item)}
-              >
-                {item}
-              </button>
-            ),
-          )}
-        </nav>
-      )}
     </div>
   )
-}
-
-function buildPageList(current: number, total: number): Array<number | '…'> {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
-  const pages = new Set<number>([1, total, current - 1, current, current + 1])
-  const sorted = [...pages].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b)
-  const result: Array<number | '…'> = []
-  for (let i = 0; i < sorted.length; i++) {
-    if (i > 0 && sorted[i] - sorted[i - 1] > 1) result.push('…')
-    result.push(sorted[i])
-  }
-  return result
 }
