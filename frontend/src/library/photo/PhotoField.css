@@ -1,0 +1,7 @@
+.photo-field { margin-top: 20px; padding: 18px; display: flex; gap: 16px; justify-content: space-between; align-items: center; border: 1px dashed #d8dcda; border-radius: 5px; background: white; font-size: 14px; }
+.photo-field p { margin: 8px 0 0; color: #626d67; overflow-wrap: anywhere; }
+.photo-field input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.photo-field:focus-within { outline: 2px solid #493629; }
+.photo-field button { padding: 13px 20px; border: 1px solid #d8dcda; border-radius: 5px; background: white; cursor: pointer; font-size: 14px; font-weight: bold; }
+.photo-field button:disabled { cursor: default; }
+@media (max-width: 480px) { .photo-field { align-items: start; flex-direction: column; } }
