@@ -16,11 +16,13 @@
   --page-padding: clamp(24px, 4.45vw, 64px);
   --cream: #f5e8c4;
   --brown: #493629;
+  --napkin-images: url('./assets/images/background-left.svg'), url('./assets/images/background-right.svg');
+  --napkin-size: clamp(280px, 58vmin, 820px);
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; background: #eabe79; }
-body { min-width: 320px; min-height: 100vh; margin: 0; }
+html { background: #eabe79; }
+body { min-height: 100vh; margin: 0; }
 button, a { font: inherit; }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; }
@@ -28,11 +30,16 @@ button { color: inherit; }
 
 .home-page {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #eabe79;
   background-image: url('./assets/images/tiles.svg');
   background-position: center top;
-  background-size: max(100%, 1440px) auto;
+  background-size: clamp(1440px, 100%, 1920px) auto;
 }
+
+.home-page > main { display: flex; flex: 1; flex-direction: column; }
+.home-page .hero { display: flex; flex: 1; flex-direction: column; justify-content: center; }
 
 .site-header {
   height: 96px;
@@ -61,8 +68,10 @@ button { color: inherit; }
   object-fit: contain;
 }
 
-.main-nav, .user-nav { display: flex; align-items: center; gap: 30px; }
+.main-nav, .user-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; }
 .user-nav { margin-left: auto; }
+.user-nav [role='alert'] { flex-basis: 100%; font-size: 14px; text-align: end; }
+.site-header:has([role='alert']) { height: auto; min-height: 96px; padding-block: 12px; }
 .main-nav a, .user-nav > a:not(.favorites-link), .nav-button, .footer-content a { position: relative; }
 .main-nav a::after, .user-nav > a:not(.favorites-link)::after, .nav-button::after, .footer-content a::after {
   content: '';
@@ -195,28 +204,46 @@ button { color: inherit; }
   padding: 24px;
   background: #eabe79;
   color: #493629;
+  overflow-wrap: anywhere;
   font: 700 20px/1.4 'Piazzolla', Georgia, serif;
 }
 :focus-visible { outline: 3px solid #c84b3c; outline-offset: 5px; }
+
+@media (min-width: 1920px) {
+  .hero-title { max-width: 100%; font-size: clamp(96px, 5vw, 240px); }
+  .hero-title-outline { -webkit-text-stroke-width: clamp(4px, 0.2vw, 10px); }
+  .hero > p { font-size: clamp(50px, 2.6vw, 108px); }
+}
+
+@media (max-width: 1280px) {
+  .hero-title { font-size: clamp(30px, 8vw, 96px); }
+  .hero-title-outline { white-space: normal; }
+}
 
 @media (max-width: 980px) {
   .site-header { height: auto; min-height: 96px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
   .brand { width: 190px; height: 56px; }
   .brand img { width: 190px; height: 56px; }
   .user-nav { width: 100%; margin-left: 0; justify-content: flex-end; }
-  .hero { min-height: 540px; margin-top: 48px; padding-top: 120px; }
+  .hero { min-height: 0; margin-top: 48px; padding-block: clamp(48px, 10vw, 100px); }
 }
 
 @media (max-width: 680px) {
+  :root { --page-padding: clamp(16px, 4.45vw, 24px); }
+
   .site-header, .main-nav, .user-nav { justify-content: center; }
   .site-header { gap: 8px 20px; font-size: 17px; }
-  .main-nav, .user-nav { gap: 18px; }
-  .hero { min-height: 470px; margin-top: 32px; padding-top: 95px; }
-  .hero-title { font-size: clamp(48px, 14.5vw, 76px); }
+  .main-nav, .user-nav { width: 100%; gap: 4px 18px; }
+  .site-header nav > a, .nav-button { padding-block: 8px; }
+  .user-nav [role='alert'] { text-align: center; }
+  .hero { margin-top: 32px; }
+  .hero-title { font-size: clamp(30px, 12vw, 76px); }
   .hero-title-outline { -webkit-text-stroke-width: 2px; white-space: normal; }
-  .about { min-height: 0; }
-  .site-footer { min-height: 150px; gap: 8px; }
-  .footer-apple { width: 60px; height: 59px; }
+  .hero > p { font-size: clamp(22px, 5vw, 32px); }
+  .about { min-height: 0; padding-block: 28px; }
+  .about p { font-size: 18px; line-height: 1.4; text-align: start; }
+  .site-footer { min-height: 0; gap: 8px; }
+  .footer-apple { width: clamp(32px, 11vw, 60px); height: auto; }
   .footer-content { min-width: 0; text-align: center; font-size: 12px; }
 }
 

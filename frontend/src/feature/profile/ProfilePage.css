@@ -20,9 +20,9 @@
 .profile-main {
   flex: 1;
   padding: 32px var(--page-padding) 64px;
-  background-image: url('../../assets/images/background-left.svg'), url('../../assets/images/background-right.svg');
+  background-image: var(--napkin-images);
   background-position: left bottom, right top;
-  background-size: auto 100%;
+  background-size: auto var(--napkin-size);
   background-repeat: no-repeat;
 }
 
@@ -110,6 +110,9 @@
 }
 
 @media (max-width: 600px) {
+  .profile-main { padding-block: 24px 40px; }
+  .profile-main h1 { margin-bottom: 20px; }
+  .profile-layout { gap: 16px; }
   .profile-details dl { grid-template-columns: 1fr; }
-  .profile-panel { padding: 20px; }
+  .profile-panel { padding: 16px; }
 }

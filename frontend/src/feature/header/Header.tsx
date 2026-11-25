@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useKeycloak } from '@react-keycloak/web'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.svg'
 
 function Header() {
     const { keycloak } = useKeycloak()
