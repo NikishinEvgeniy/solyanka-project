@@ -1,4 +1,4 @@
-package moex.com.tp_ivt_team4_2026.library.exception.recipe;
+package moex.com.tp_ivt_team4_2026.recipe.feature.byid.exception;
 
 import lombok.Getter;
 

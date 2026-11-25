@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  title: Спецификация удаления ингредиента
+  version: 1.0.0
+paths:
+  /api/v1/recipes/{recipe_id}/ingredients/{ingredient_id}:
+    delete:
+      tags: [delete-ingredient]
+      operationId: deleteById
+      summary: Удаление ингредиента по ID
+      parameters:
+        - name: recipe_id
+          in: path
+          required: true
+          description: Уникальный идентификатор рецепта
+          schema:
+            type: integer
+            format: int64
+            example: 20
+        - name: ingredient_id
+          in: path
+          required: true
+          description: Уникальный идентификатор ингредиента
+          schema:
+            type: integer
+            format: int64
+            example: 20
+      responses:
+        '200':
+          description: Успешное удаление ингредиента
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngredientDeleteResponseV1'
+        '404':
+          $ref: '../responses/bad-request-v1.yml'
+        '500':
+          $ref: '../responses/internal-server-error-v1.yml'
+
+components:
+  schemas:
+    IngredientDeleteResponseV1:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: Описание состояния выполнения удаления
