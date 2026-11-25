@@ -44,6 +44,7 @@
 }
 .ingf__rows { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; }
 .ingf__cell { min-width: 0; }
+.ingf__head, .ingf__error { overflow-wrap: anywhere; }
 
 /* Подписи полей: на десктопе скрыты визуально (их заменяет шапка), но доступны скринридерам */
 .ingf__label {
@@ -121,7 +122,11 @@
 .ingf__footer { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
 .ingf__hint { color: var(--ingf-accent); font-size: 14px; }
 
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
+  .ingf { --ingf-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)) 38px; }
+}
+
+@media (max-width: 760px) {
   .ingf { padding: 18px; }
   .ingf__head { display: none; }
   .ingf__row {
@@ -137,4 +142,12 @@
     font-family: var(--ingf-heading-font); font-size: 16px; font-weight: 700;
   }
   .ingf__remove { align-self: end; }
+}
+
+@media (max-width: 420px) {
+  .ingf { padding: 14px; }
+  .ingf__row { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; }
+  .ingf__label { font-size: 15px; }
+  .ingf .ingf__field, .ingf .ingf__picker { min-height: 44px; padding-inline: 8px; font-size: 16px; }
+  .ingf .ingf__remove { grid-column: 2; justify-self: end; width: 44px; height: 44px; }
 }

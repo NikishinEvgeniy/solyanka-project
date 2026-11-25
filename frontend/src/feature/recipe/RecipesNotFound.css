@@ -11,6 +11,11 @@
   font: 600 clamp(22px, 2.1vw, 40px)/1.15 'Piazzolla', Georgia, serif;
 }
 
-@media (max-width: 700px) {
-  .recipes-not-found { width: min(80%, 420px); }
+@media (max-width: 980px), (max-height: 720px) {
+  .recipes-not-found {
+    position: static;
+    transform: none;
+    place-self: center;
+    width: min(100%, clamp(280px, 36vw, 680px));
+  }
 }

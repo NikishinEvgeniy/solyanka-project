@@ -18,7 +18,7 @@ export default function TestModalPage() {
   }
 
   return (
-    <div style={{ padding: '40px', textAlign: 'center', fontFamily: 'sans-serif' }}>
+    <div style={{ padding: 'clamp(16px, 5vw, 40px)', textAlign: 'center', fontFamily: 'sans-serif', overflowWrap: 'anywhere' }}>
       <h1>Тест модального окна</h1>
 
       <button
