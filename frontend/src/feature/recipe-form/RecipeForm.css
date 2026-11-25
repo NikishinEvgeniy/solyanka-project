@@ -4,12 +4,15 @@
   flex-direction: column;
   color: #272e29;
   background-color: #f2ebd9;
-  background-image: url('../../assets/images/background-left.svg'), url('../../assets/images/background-right.svg');
-  background-position: left center, right center;
-  background-size: auto 100%;
+}
+.recipe-editor-main {
+  flex: 1;
+  padding: 32px var(--page-padding) 80px;
+  background-image: var(--napkin-images);
+  background-position: left bottom, right top;
+  background-size: auto var(--napkin-size);
   background-repeat: no-repeat;
 }
-.recipe-editor-main { flex: 1; padding: 32px var(--page-padding) 80px; }
 .recipe-editor h1 { margin: 0 0 30px; font-size: clamp(28px, 2.5vw, 40px); }
 .recipe-editor-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
 .recipe-editor-panel { min-width: 0; margin: 0; padding: 28px; border: 0; border-radius: 10px; background: #e5d9b9; box-shadow: 0 12px 6px -5px #49362955; }

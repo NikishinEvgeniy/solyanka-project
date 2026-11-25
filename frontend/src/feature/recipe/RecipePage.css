@@ -10,9 +10,9 @@
 
 .recipe-main,
 .recipe-missing-main {
-  background-image: url('../../assets/images/background-left.svg'), url('../../assets/images/background-right.svg');
+  background-image: var(--napkin-images);
   background-position: left bottom, right top;
-  background-size: auto 100%;
+  background-size: auto var(--napkin-size);
   background-repeat: no-repeat;
 }
 
