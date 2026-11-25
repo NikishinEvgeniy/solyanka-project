@@ -1,4 +1,4 @@
-package moex.com.tp_ivt_team4_2026.library.exception.recipe;
+package moex.com.tp_ivt_team4_2026.recipe.feature.byid.exception;
 import moex.com.tp_ivt_team4_2026.model.ErrorResponseV1;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
